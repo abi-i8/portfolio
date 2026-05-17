@@ -317,10 +317,6 @@ export default function Navbar() {
           <a href="#edu" onClick={closeMenu} style={{ transitionDelay: "0.25s" }}>Education</a>
           <a href="#contact" onClick={closeMenu} style={{ transitionDelay: "0.3s" }}>Contact</a>
         </div>
-        <div className="mob-ft">
-          <div className="m-line"></div>
-          <div>Based in India — Available Worldwide</div>
-        </div>
       </div>
 
       <style jsx>{`
