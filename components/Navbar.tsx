@@ -52,12 +52,12 @@ export default function Navbar() {
         if (!this.ctx || !this.masterGain || !this.isPlaying) return;
         
         const now = this.ctx.currentTime;
-        // Hans Zimmer Interstellar "Chase / No Time For Caution" Cinematic Chords
+        // Hans Zimmer Interstellar "Cornfield Chase" Majestic Soaring Waltz Chords
         const chords = [
           [110.00, 164.81, 220.00, 261.63, 329.63], // A Minor (Am)
-          [87.31, 130.81, 174.61, 220.00, 261.63],  // F Major (F)
-          [130.81, 196.00, 261.63, 329.63, 392.00], // C Major (C)
-          [82.41, 123.47, 164.81, 207.65, 246.94]   // E Major (E) - Tension sweller
+          [146.83, 220.00, 293.66, 369.99, 440.00], // D Major (D) - Majestic soaring!
+          [98.00, 146.83, 196.00, 246.94, 293.66],  // G Major (G)
+          [130.81, 196.00, 261.63, 329.63, 392.00]  // C Major (C)
         ];
 
         const notes = chords[this.currentChordIdx];
@@ -71,16 +71,16 @@ export default function Navbar() {
           osc.frequency.setValueAtTime(freq, now);
 
           gain.gain.setValueAtTime(0, now);
-          // Tension swelling pad fade-in
-          gain.gain.linearRampToValueAtTime(0.38 / notes.length, now + 1.2 + idx * 0.15);
-          gain.gain.setValueAtTime(0.38 / notes.length, now + 2.8);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.8);
+          // Swelling cinematic cathedral pad fade-in
+          gain.gain.linearRampToValueAtTime(0.35 / notes.length, now + 1.5 + idx * 0.2);
+          gain.gain.setValueAtTime(0.35 / notes.length, now + 3.2);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 4.6);
 
           osc.connect(gain);
           gain.connect(this.filter!);
 
           osc.start(now);
-          osc.stop(now + 4.0);
+          osc.stop(now + 4.8);
         });
 
         this.currentChordIdx = (this.currentChordIdx + 1) % chords.length;
@@ -90,36 +90,36 @@ export default function Navbar() {
         if (!this.ctx || !this.masterGain || !this.isPlaying) return;
         
         const now = this.ctx.currentTime;
-        // Zimmer's cascading high-tension organ arpeggios
+        // Sweeping organ arpeggios in 3/4 waltz time
         const arpPitches = [
           [440.00, 523.25, 659.25, 880.00], // Am: A4, C5, E5, A5
-          [349.23, 440.00, 523.25, 698.46], // F: F4, A4, C5, F5
-          [392.00, 523.25, 659.25, 783.99], // C: G4, C5, E5, G5
-          [415.30, 493.88, 659.25, 830.61]  // E: G#4, B4, E5, G#5
+          [440.00, 587.33, 739.99, 880.00], // D: A4, D5, F#5, A5
+          [392.00, 493.88, 587.33, 783.99], // G: G4, B4, D5, G5
+          [392.00, 523.25, 659.25, 783.99]  // C: G4, C5, E5, G5
         ];
 
         const activeArp = arpPitches[(this.currentChordIdx === 0 ? 3 : this.currentChordIdx - 1)];
-        const pattern = [0, 1, 2, 3, 2, 1]; // Cascading rise and fall
+        const pattern = [0, 1, 2, 3, 2, 1]; // Waltz rise and fall
         const pitch = activeArp[pattern[this.arpStep % pattern.length]];
 
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
 
-        osc.type = 'triangle'; // Pure cathedral organ texture
+        osc.type = 'triangle'; // Softer, warmer cathedral organ pipe
         osc.frequency.setValueAtTime(pitch, now);
 
         gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.052, now + 0.02);
-        gain.gain.setValueAtTime(0.052, now + 0.07);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+        gain.gain.linearRampToValueAtTime(0.045, now + 0.03);
+        gain.gain.setValueAtTime(0.045, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
 
-        // High-pitched ticking space watch/clock metronome for Zimmer epicness!
+        // Highly polished, extremely subtle ticking space watch/clock metronome for Zimmer texture
         const tickOsc = this.ctx.createOscillator();
         const tickGain = this.ctx.createGain();
         tickOsc.type = 'sine';
-        tickOsc.frequency.setValueAtTime(1900, now);
+        tickOsc.frequency.setValueAtTime(1600, now);
         tickGain.gain.setValueAtTime(0, now);
-        tickGain.gain.linearRampToValueAtTime(0.016, now + 0.002);
+        tickGain.gain.linearRampToValueAtTime(0.008, now + 0.002);
         tickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.015);
         tickOsc.connect(tickGain);
         tickGain.connect(this.masterGain);
@@ -130,7 +130,7 @@ export default function Navbar() {
         gain.connect(this.masterGain);
 
         osc.start(now);
-        osc.stop(now + 0.9);
+        osc.stop(now + 1.2);
 
         this.arpStep++;
       }
@@ -144,16 +144,16 @@ export default function Navbar() {
         
         const now = this.ctx!.currentTime;
         this.masterGain?.gain.setValueAtTime(0, now);
-        this.masterGain?.gain.linearRampToValueAtTime(0.92, now + 1.2);
+        this.masterGain?.gain.linearRampToValueAtTime(0.92, now + 1.5);
 
         this.playInterstellarChord();
         this.chordIntervalId = setInterval(() => {
           this.playInterstellarChord();
-        }, 4000);
+        }, 4800);
 
         this.arpIntervalId = setInterval(() => {
           this.playArpeggioTick();
-        }, 160);
+        }, 200);
       }
 
       stop() {
