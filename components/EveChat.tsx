@@ -1217,6 +1217,13 @@ export default function EveChat() {
           .eve-chat {
             backdrop-filter: blur(20px) !important;
           }
+          .eve-chat:focus-within {
+            bottom: 75px !important;
+            max-height: 220px !important;
+          }
+          .eve-chat:focus-within::after {
+            display: none !important;
+          }
 
           .eve-chat::after {
             content: "" !important;
@@ -1242,6 +1249,10 @@ export default function EveChat() {
           .chat-msgs {
             padding: 0 !important;
             height: 115px !important;
+            transition: height 0.3s ease;
+          }
+          .eve-chat:focus-within .chat-msgs {
+            height: 75px !important;
           }
 
           .chat-input-row {
