@@ -48,6 +48,7 @@ const KB = [
 class EveSoundFX {
   public ctx: AudioContext | null = null;
   private lastWhooshTime = 0;
+  public hasPlayedWhoosh = false;
 
   init() {
     if (this.ctx) return;
@@ -111,6 +112,9 @@ class EveSoundFX {
   playWhoosh(direction: "falling" | "flying") {
     this.init();
     if (!this.ctx) return;
+    
+    if (this.hasPlayedWhoosh) return; // Only play once!
+    this.hasPlayedWhoosh = true;
     
     const now = Date.now();
     if (now - this.lastWhooshTime < 950) return; // Rate-limit whooshes for clean audio design
