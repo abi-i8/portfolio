@@ -171,6 +171,7 @@ export default function EveChat() {
   const hasInteractedRef = useRef(false);
   const sfxRef = useRef<any>(null);
   const isInputFocused = useRef(false);
+  const currentRobotStateRef = useRef<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
 
   // Cute natural blinking and happy eyes cycle loop for EVE!
   useEffect(() => {
@@ -217,6 +218,7 @@ export default function EveChat() {
 
   // Helper to change robot state safely and handle scroll-dismissal of the chat window.
   const updateRobotState = (s: "closed" | "idle" | "falling" | "flying" | "giggling") => {
+    currentRobotStateRef.current = s;
     setRobotState(s);
     if (s !== "idle" && s !== "closed" && s !== "giggling") {
       // If EVE goes into scrolling states (falling or flying), cancel auto-opening and close chat panel immediately.
@@ -242,6 +244,7 @@ export default function EveChat() {
       
       setRobotState(prev => {
         if (prev === "closed") {
+          currentRobotStateRef.current = "idle";
           autoOpenTimerRef.current = setTimeout(() => {
             if (hasInteractedRef.current) return;
             setIsOpen(true);
@@ -262,10 +265,17 @@ export default function EveChat() {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      if (Math.abs(y - lastScrollY.current) < 12) return;
+      if (Math.abs(y - lastScrollY.current) < 15) return;
 
       // If the chat input is focused, ignore the scroll to avoid bot movement/collapsing!
       if (isInputFocused.current) {
+        lastScrollY.current = y;
+        return;
+      }
+
+      // STRICT STATE MACHINE: EVE must be in 'idle' state to trigger a new scroll animation/sound!
+      // If she is already scrolling (flying/falling) or giggling, ignore all continuous scroll events!
+      if (currentRobotStateRef.current !== "idle") {
         lastScrollY.current = y;
         return;
       }
@@ -309,6 +319,7 @@ export default function EveChat() {
     setTimeout(() => {
       setIsTyping(false);
       setMsgs(prev => [...prev, { role: "bot", content: txt, id: Date.now() }]);
+      sfxRef.current?.playChirp(); // Play robot vocal talking chirp sound when EVE sends a message!
     }, 900);
   };
 
@@ -364,7 +375,7 @@ export default function EveChat() {
       setIsOpen(false);
     } else {
       setIsOpen(true);
-      if (robotState === "idle") {
+      if (currentRobotStateRef.current === "idle") {
         updateRobotState("giggling");
         setTimeout(() => updateRobotState("idle"), 1500);
       }
