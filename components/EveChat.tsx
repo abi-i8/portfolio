@@ -231,12 +231,12 @@ export default function EveChat() {
           autoOpenTimerRef.current = setTimeout(() => {
             if (hasInteractedRef.current) return;
             setIsOpen(true);
-          }, 1500);
+          }, 600);
           return "idle";
         }
         return prev;
       });
-    }, 2200);
+    }, 450);
 
     return () => {
       if (wakeUpTimerRef.current) clearTimeout(wakeUpTimerRef.current);
@@ -842,16 +842,11 @@ export default function EveChat() {
         }
 
         .eve-robot-wrap.falling .eve-arm.l {
-          transform: rotate(160deg) translateY(-5px);
+          transform: rotate(12deg);
         }
 
         .eve-robot-wrap.falling .eve-arm.r {
-          transform: rotate(-160deg) translateY(-5px);
-        }
-
-        /* Elongated droplet eyes on Stable Descent (Scroll Down) */
-        .eve-robot-wrap.falling .circle-eye {
-          transform: scaleY(1.38) scaleX(0.82) !important;
+          transform: rotate(-12deg);
         }
 
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
@@ -865,16 +860,11 @@ export default function EveChat() {
         }
 
         .eve-robot-wrap.flying .eve-arm.l {
-          transform: translate(6px, 2px) rotate(0deg);
+          transform: rotate(4deg);
         }
 
         .eve-robot-wrap.flying .eve-arm.r {
-          transform: translate(-6px, 2px) rotate(0deg);
-        }
-
-        /* Flattened squinty oval eyes on Cinematic Flight (Scroll Up) */
-        .eve-robot-wrap.flying .circle-eye {
-          transform: scaleY(0.55) scaleX(1.15) !important;
+          transform: rotate(-4deg);
         }
 
         /* ── CINEMATIC PROPULSION ── */
