@@ -506,6 +506,11 @@ export default function Navbar() {
           opacity: 1;
           visibility: visible;
           pointer-events: auto;
+          touch-action: none !important;
+        }
+        :global(body.mob-open) {
+          overflow: hidden !important;
+          touch-action: none !important;
         }
         .mob-links {
           display: flex;
