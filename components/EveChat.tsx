@@ -48,7 +48,6 @@ const KB = [
 class EveSoundFX {
   public ctx: AudioContext | null = null;
   private lastWhooshTime = 0;
-  public hasPlayedWhoosh = false;
 
   init() {
     if (this.ctx) return;
@@ -113,9 +112,6 @@ class EveSoundFX {
     this.init();
     if (!this.ctx) return;
     
-    if (this.hasPlayedWhoosh) return; // Only play once!
-    this.hasPlayedWhoosh = true;
-    
     const now = Date.now();
     if (now - this.lastWhooshTime < 950) return; // Rate-limit whooshes for clean audio design
     this.lastWhooshTime = now;
@@ -175,6 +171,7 @@ export default function EveChat() {
   const hasInteractedRef = useRef(false);
   const sfxRef = useRef<any>(null);
   const isInputFocused = useRef(false);
+  const robotStateRef = useRef<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
 
   // Cute natural blinking and happy eyes cycle loop for EVE!
   useEffect(() => {
@@ -221,6 +218,7 @@ export default function EveChat() {
 
   // Helper to change robot state safely and handle scroll-dismissal of the chat window.
   const updateRobotState = (s: "closed" | "idle" | "falling" | "flying" | "giggling") => {
+    robotStateRef.current = s;
     setRobotState(s);
     if (s !== "idle" && s !== "closed" && s !== "giggling") {
       // If EVE goes into scrolling states (falling or flying), cancel auto-opening and close chat panel immediately.
@@ -277,8 +275,13 @@ export default function EveChat() {
       const dir = y > lastScrollY.current ? "falling" : "flying";
       lastScrollY.current = y;
 
+      const currentState = robotStateRef.current;
       updateRobotState(dir);
-      sfxRef.current?.playWhoosh(dir); // Play custom direction swept sci-fi whoosh!
+      
+      // Only play whoosh if EVE is starting a brand new scroll action (transitioning from idle or closed)
+      if (currentState === "idle" || currentState === "closed") {
+        sfxRef.current?.playWhoosh(dir);
+      }
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
       scrollTimer.current = setTimeout(() => {
         updateRobotState("idle");
