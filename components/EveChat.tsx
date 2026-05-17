@@ -125,7 +125,21 @@ class EveSoundFX {
 
 export default function EveChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [robotState, setRobotState] = useState<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
+  const [robotState, _setRobotState] = useState<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
+  const robotStateRef = useRef<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
+
+  const setRobotState = (s: "closed" | "idle" | "falling" | "flying" | "giggling" | ((prev: "closed" | "idle" | "falling" | "flying" | "giggling") => "closed" | "idle" | "falling" | "flying" | "giggling")) => {
+    if (typeof s === "function") {
+      _setRobotState(prev => {
+        const next = s(prev);
+        robotStateRef.current = next;
+        return next;
+      });
+    } else {
+      _setRobotState(s);
+      robotStateRef.current = s;
+    }
+  };
   const [msgs, setMsgs] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -142,6 +156,7 @@ export default function EveChat() {
   const hasInteractedRef = useRef(false);
   const sfxRef = useRef<any>(null);
   const isInputFocused = useRef(false);
+  const lastStateChangeTime = useRef(0);
 
   // Cute natural blinking and happy eyes cycle loop for EVE!
   useEffect(() => {
@@ -244,7 +259,13 @@ export default function EveChat() {
       const dir = y > lastScrollY.current ? "falling" : "flying";
       lastScrollY.current = y;
 
-      updateRobotState(dir);
+      const now = Date.now();
+      // Keep state for at least 350ms to prevent rapid, jittery state toggling / vibration!
+      if (now - lastStateChangeTime.current > 350 || robotStateRef.current === "idle" || robotStateRef.current === "closed") {
+        updateRobotState(dir);
+        lastStateChangeTime.current = now;
+      }
+
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
       scrollTimer.current = setTimeout(() => {
         updateRobotState("idle");
@@ -812,7 +833,7 @@ export default function EveChat() {
 
         /* ── STATE: SCROLL DOWN (Stable Descent) ── */
         .eve-robot-wrap.falling .eve-body {
-          transform: translateX(-50%) translateY(12px) rotate(1.5deg);
+          transform: translateX(-50%) translateY(6px) rotate(1deg);
         }
 
         .eve-robot-wrap.falling .eve-head {
@@ -835,7 +856,7 @@ export default function EveChat() {
 
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
         .eve-robot-wrap.flying .eve-body {
-          transform: translateX(-50%) translateY(-32px) rotate(-1.5deg);
+          transform: translateX(-50%) translateY(-20px) rotate(-1deg);
         }
 
         .eve-robot-wrap.flying .eve-head {
