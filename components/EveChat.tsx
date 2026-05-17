@@ -843,11 +843,11 @@ export default function EveChat() {
         }
 
         .eve-robot-wrap.falling .eve-arm.l {
-          transform: rotate(12deg);
+          transform: rotate(160deg) translateY(-5px);
         }
 
         .eve-robot-wrap.falling .eve-arm.r {
-          transform: rotate(-12deg);
+          transform: rotate(-160deg) translateY(-5px);
         }
 
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
@@ -861,11 +861,11 @@ export default function EveChat() {
         }
 
         .eve-robot-wrap.flying .eve-arm.l {
-          transform: rotate(4deg);
+          transform: translate(6px, 2px) rotate(0deg);
         }
 
         .eve-robot-wrap.flying .eve-arm.r {
-          transform: rotate(-4deg);
+          transform: translate(-6px, 2px) rotate(0deg);
         }
 
         /* ── CINEMATIC PROPULSION ── */
