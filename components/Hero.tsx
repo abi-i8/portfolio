@@ -22,7 +22,8 @@ export default function Hero() {
       alpha: false,
       powerPreference: "high-performance",
     });
-    rend.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const isMobileDevice = typeof navigator !== "undefined" && (/Mobi|Android|iPhone/i.test(navigator.userAgent) || window.innerWidth < 768);
+    rend.setPixelRatio(isMobileDevice ? 1 : Math.min(window.devicePixelRatio, 1.5));
     rend.setSize(W, H);
     rend.setClearColor(0x01010a, 1);
 
@@ -242,41 +243,52 @@ export default function Hero() {
     window.addEventListener("scroll", onScroll);
     window.addEventListener("resize", onResize);
 
+    let isHeroVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isHeroVisible = entry.isIntersecting;
+      },
+      { threshold: 0.02 }
+    );
+    observer.observe(cv);
+
     let t = 0;
     let rafId: number;
     const tick = () => {
-      if (!PM) t += 0.006;
-      cx += (mx - cx) * 0.09; cy += (my - cy) * 0.09;
-      planet.rotation.x = dragRotX;
-      planet.rotation.y = dragRotY + t * 0.05;
-      clouds.rotation.x = planet.rotation.x;
-      clouds.rotation.y = planet.rotation.y + t * 0.08;
-      [atm1, atm2].forEach((a) => a.rotation.copy(planet.rotation));
-      rings[0].rotation.z = t * 0.1; rings[1].rotation.z = -t * 0.06; rings[2].rotation.z = t * 0.036;
-      rings.forEach((r) => { r.rotation.x += 0.00025; });
-      moonGroup.rotation.y += 0.008;
-      galaxy.rotation.y = t * 0.05 + cx * 0.025; galaxy.rotation.x = t * 0.016 + cy * 0.012;
-      
-      /* shooting star */
-      shotTimer += 0.016;
-      if (shotTimer > 5.5) {
-        const ox = -9 + Math.random() * 18, oy = 2.5 + Math.random() * 4;
-        shot.position.set(ox, oy, -1);
-        shotMat.opacity = 0.95;
-        setTimeout(() => {
-          shotMat.opacity = 0;
-          shotTimer = 0;
-        }, 480);
-      }
+      if (isHeroVisible) {
+        if (!PM) t += 0.006;
+        cx += (mx - cx) * 0.09; cy += (my - cy) * 0.09;
+        planet.rotation.x = dragRotX;
+        planet.rotation.y = dragRotY + t * 0.05;
+        clouds.rotation.x = planet.rotation.x;
+        clouds.rotation.y = planet.rotation.y + t * 0.08;
+        [atm1, atm2].forEach((a) => a.rotation.copy(planet.rotation));
+        rings[0].rotation.z = t * 0.1; rings[1].rotation.z = -t * 0.06; rings[2].rotation.z = t * 0.036;
+        rings.forEach((r) => { r.rotation.x += 0.00025; });
+        moonGroup.rotation.y += 0.008;
+        galaxy.rotation.y = t * 0.05 + cx * 0.025; galaxy.rotation.x = t * 0.016 + cy * 0.012;
+        
+        /* shooting star */
+        shotTimer += 0.016;
+        if (shotTimer > 5.5) {
+          const ox = -9 + Math.random() * 18, oy = 2.5 + Math.random() * 4;
+          shot.position.set(ox, oy, -1);
+          shotMat.opacity = 0.95;
+          setTimeout(() => {
+            shotMat.opacity = 0;
+            shotTimer = 0;
+          }, 480);
+        }
 
-      tsy += (sy - tsy) * 0.055;
-      const heroH = H;
-      const pr = Math.min(tsy / heroH, 1);
-      cam.position.x = cx * 0.3;
-      cam.position.y = 0.2 - pr * 2.4 + cy * 0.16;
-      cam.position.z = 7.8 + pr * 1.6;
-      cam.lookAt(0, 0, 0);
-      rend.render(scene, cam);
+        tsy += (sy - tsy) * 0.055;
+        const heroH = H;
+        const pr = Math.min(tsy / heroH, 1);
+        cam.position.x = cx * 0.3;
+        cam.position.y = 0.2 - pr * 2.4 + cy * 0.16;
+        cam.position.z = 7.8 + pr * 1.6;
+        cam.lookAt(0, 0, 0);
+        rend.render(scene, cam);
+      }
       rafId = requestAnimationFrame(tick);
     };
     rafId = requestAnimationFrame(tick);
@@ -287,6 +299,7 @@ export default function Hero() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
+      observer.disconnect();
       cancelAnimationFrame(rafId);
       scene.clear();
       rend.dispose();
