@@ -1203,6 +1203,7 @@ export default function EveChat() {
             transform: scale(0.6) !important;
             transform-origin: bottom right !important;
             opacity: 0.9;
+            z-index: 90 !important;
           }
 
           .eve-chat {
@@ -1222,19 +1223,13 @@ export default function EveChat() {
             transform: none !important;
             pointer-events: none !important;
             padding: 0.85rem 1rem !important;
+            z-index: 100 !important;
           }
           .eve-chat.open {
             pointer-events: auto !important;
           }
           .eve-chat {
             backdrop-filter: blur(20px) !important;
-          }
-          .eve-chat:focus-within {
-            bottom: 75px !important;
-            max-height: 220px !important;
-          }
-          .eve-chat:focus-within::after {
-            display: none !important;
           }
 
           .eve-chat::after {
@@ -1262,9 +1257,6 @@ export default function EveChat() {
             padding: 0 !important;
             height: 115px !important;
             transition: height 0.3s ease;
-          }
-          .eve-chat:focus-within .chat-msgs {
-            height: 75px !important;
           }
 
           .chat-input-row {
