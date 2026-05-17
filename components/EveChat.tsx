@@ -170,6 +170,7 @@ export default function EveChat() {
   const wakeUpTimerRef = useRef<NodeJS.Timeout | null>(null);
   const hasInteractedRef = useRef(false);
   const sfxRef = useRef<any>(null);
+  const isInputFocused = useRef(false);
 
   // Cute natural blinking and happy eyes cycle loop for EVE!
   useEffect(() => {
@@ -227,8 +228,10 @@ export default function EveChat() {
         clearTimeout(wakeUpTimerRef.current);
         wakeUpTimerRef.current = null;
       }
-      setIsOpen(false);
-      hasInteractedRef.current = true; // Mark as interacted to block future auto-opens
+      if (!isInputFocused.current) {
+        setIsOpen(false);
+        hasInteractedRef.current = true; // Mark as interacted to block future auto-opens
+      }
     }
   };
 
@@ -260,6 +263,13 @@ export default function EveChat() {
     const onScroll = () => {
       const y = window.scrollY;
       if (Math.abs(y - lastScrollY.current) < 12) return;
+
+      // If the chat input is focused, ignore the scroll to avoid bot movement/collapsing!
+      if (isInputFocused.current) {
+        lastScrollY.current = y;
+        return;
+      }
+
       const dir = y > lastScrollY.current ? "falling" : "flying";
       lastScrollY.current = y;
 
@@ -401,6 +411,8 @@ export default function EveChat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            onFocus={() => { isInputFocused.current = true; }}
+            onBlur={() => { isInputFocused.current = false; }}
           />
           <button className="chat-send" id="csend" aria-label="Send message" onClick={handleSend}>›</button>
         </div>
