@@ -47,12 +47,29 @@ const KB = [
 // Client-side Web Audio SFX Class for EVE (giggle chirps and scroll whooshes)
 class EveSoundFX {
   public ctx: AudioContext | null = null;
-  private lastWhooshTime = 0;
+  private activeOsc: OscillatorNode | null = null;
+  private activeGain: GainNode | null = null;
+  private activeFilter: BiquadFilterNode | null = null;
 
   init() {
     if (this.ctx) return;
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-    this.ctx = new AudioContextClass();
+    const AudioContextClass = (window as any).AudioContext || (window as any).webkitAudioContext;
+    if (AudioContextClass) {
+      this.ctx = new AudioContextClass();
+      
+      // Fully unlock Web Audio API on iOS/Android browsers with a silent dummy source play within the user gesture loop
+      try {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(0);
+        osc.stop(0.001);
+      } catch (e) {
+        // Safe catch
+      }
+    }
   }
 
   // Synthesizes a vocal formant cute robotic talking chirp (cascading dual vocal formant sweeps: "E-vah!")
@@ -79,7 +96,7 @@ class EveSoundFX {
       osc1.type = 'sine';
       osc2.type = 'triangle'; // triangle waves add soft, human-like voice warmth
       
-      // Infinite pitch inflection sweeps
+      // Pitch inflection sweeps
       osc1.frequency.setValueAtTime(f.freq, now + f.time);
       osc1.frequency.exponentialRampToValueAtTime(f.freq * 1.15, now + f.time + f.dur);
       
@@ -107,50 +124,78 @@ class EveSoundFX {
     });
   }
 
-  // Sci-fi wind whoosh on scroll down/up
-  playWhoosh(direction: "falling" | "flying") {
+  // Synthesizes a continuous sci-fi breeze whoosh that plays smoothly as long as EVE is moving
+  startWhoosh(direction: "falling" | "flying") {
     this.init();
     if (!this.ctx) return;
-    
-    const now = Date.now();
-    if (now - this.lastWhooshTime < 950) return; // Rate-limit whooshes for clean audio design
-    this.lastWhooshTime = now;
-
     if (this.ctx.state === 'suspended') this.ctx.resume();
 
     const t = this.ctx.currentTime;
+
+    // If a continuous whoosh is already active, glide its frequency/gain seamlessly without visual/audio popping
+    if (this.activeOsc && this.activeGain) {
+      const targetFreq = direction === "flying" ? 480 : 220;
+      this.activeOsc.frequency.cancelScheduledValues(t);
+      this.activeOsc.frequency.exponentialRampToValueAtTime(targetFreq, t + 0.35);
+
+      this.activeGain.gain.cancelScheduledValues(t);
+      this.activeGain.gain.linearRampToValueAtTime(0.14, t + 0.15);
+      return;
+    }
+
+    // Synthesize a continuous wind whoosh
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
+    const filter = this.ctx.createBiquadFilter();
 
     osc.type = 'triangle';
     
-    if (direction === "flying") {
-      // Gentle breeze sweeps up slowly
-      osc.frequency.setValueAtTime(260, t);
-      osc.frequency.exponentialRampToValueAtTime(540, t + 1.1);
-    } else {
-      // Gentle breeze sweeps down slowly
-      osc.frequency.setValueAtTime(420, t);
-      osc.frequency.exponentialRampToValueAtTime(200, t + 1.1);
-    }
+    const startFreq = direction === "flying" ? 260 : 380;
+    const targetFreq = direction === "flying" ? 480 : 220;
+    osc.frequency.setValueAtTime(startFreq, t);
+    osc.frequency.exponentialRampToValueAtTime(targetFreq, t + 0.45);
 
     gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.16, t + 0.25); // Sweet, perfectly audible ambient cosmic wind sweep
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.1); // Long, buttery-smooth decay to prevent sudden closing!
+    gain.gain.linearRampToValueAtTime(0.14, t + 0.2); // Smooth ramp up
 
-    // Apply lowpass filter for an airy, futuristic wind glow (softened to 680Hz)
-    const filter = this.ctx.createBiquadFilter();
+    // Lowpass filter creates an airy, futuristic space breeze glow
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(680, t);
+    filter.frequency.setValueAtTime(620, t);
 
     osc.connect(gain);
     gain.connect(filter);
     filter.connect(this.ctx.destination);
 
     osc.start(t);
-    osc.stop(t + 1.2);
+
+    this.activeOsc = osc;
+    this.activeGain = gain;
+    this.activeFilter = filter;
+  }
+
+  // Gracefully fades out the continuous wind whoosh sound over 0.4 seconds when EVE lands/stops
+  stopWhoosh() {
+    if (!this.ctx || !this.activeOsc || !this.activeGain) return;
+    const t = this.ctx.currentTime;
+
+    const osc = this.activeOsc;
+    const gain = this.activeGain;
+
+    try {
+      gain.gain.cancelScheduledValues(t);
+      gain.gain.setValueAtTime(gain.gain.value, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+      osc.stop(t + 0.45);
+    } catch (e) {
+      // Safe boundary catch
+    }
+
+    this.activeOsc = null;
+    this.activeGain = null;
+    this.activeFilter = null;
   }
 }
+
 
 export default function EveChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -171,7 +216,6 @@ export default function EveChat() {
   const hasInteractedRef = useRef(false);
   const sfxRef = useRef<any>(null);
   const isInputFocused = useRef(false);
-  const currentRobotStateRef = useRef<"closed" | "idle" | "falling" | "flying" | "giggling">("closed");
 
   // Cute natural blinking and happy eyes cycle loop for EVE!
   useEffect(() => {
@@ -201,24 +245,23 @@ export default function EveChat() {
           sfxRef.current.ctx.resume();
         }
       }
-      document.removeEventListener('click', unlock);
-      document.removeEventListener('keydown', unlock);
-      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock, { capture: true });
+      document.removeEventListener('keydown', unlock, { capture: true });
+      document.removeEventListener('touchstart', unlock, { capture: true });
     };
-    document.addEventListener('click', unlock);
-    document.addEventListener('keydown', unlock);
-    document.addEventListener('touchstart', unlock);
+    document.addEventListener('click', unlock, { passive: true, capture: true });
+    document.addEventListener('keydown', unlock, { passive: true, capture: true });
+    document.addEventListener('touchstart', unlock, { passive: true, capture: true });
 
     return () => {
-      document.removeEventListener('click', unlock);
-      document.removeEventListener('keydown', unlock);
-      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock, { capture: true });
+      document.removeEventListener('keydown', unlock, { capture: true });
+      document.removeEventListener('touchstart', unlock, { capture: true });
     };
   }, []);
 
   // Helper to change robot state safely and handle scroll-dismissal of the chat window.
   const updateRobotState = (s: "closed" | "idle" | "falling" | "flying" | "giggling") => {
-    currentRobotStateRef.current = s;
     setRobotState(s);
     if (s !== "idle" && s !== "closed" && s !== "giggling") {
       // If EVE goes into scrolling states (falling or flying), cancel auto-opening and close chat panel immediately.
@@ -244,7 +287,6 @@ export default function EveChat() {
       
       setRobotState(prev => {
         if (prev === "closed") {
-          currentRobotStateRef.current = "idle";
           autoOpenTimerRef.current = setTimeout(() => {
             if (hasInteractedRef.current) return;
             setIsOpen(true);
@@ -265,17 +307,10 @@ export default function EveChat() {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      if (Math.abs(y - lastScrollY.current) < 15) return;
+      if (Math.abs(y - lastScrollY.current) < 12) return;
 
       // If the chat input is focused, ignore the scroll to avoid bot movement/collapsing!
       if (isInputFocused.current) {
-        lastScrollY.current = y;
-        return;
-      }
-
-      // STRICT STATE MACHINE: EVE must be in 'idle' state to trigger a new scroll animation/sound!
-      // If she is already scrolling (flying/falling) or giggling, ignore all continuous scroll events!
-      if (currentRobotStateRef.current !== "idle") {
         lastScrollY.current = y;
         return;
       }
@@ -284,11 +319,12 @@ export default function EveChat() {
       lastScrollY.current = y;
 
       updateRobotState(dir);
-      sfxRef.current?.playWhoosh(dir); // Play custom direction swept sci-fi whoosh!
+      sfxRef.current?.startWhoosh(dir); // Play continuous custom sci-fi wind breeze!
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
       scrollTimer.current = setTimeout(() => {
         updateRobotState("idle");
-      }, 900);
+        sfxRef.current?.stopWhoosh(); // Smoothly fade out custom scroll wind!
+      }, 300); // Highly responsive, natural scroll debounce duration
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -319,7 +355,6 @@ export default function EveChat() {
     setTimeout(() => {
       setIsTyping(false);
       setMsgs(prev => [...prev, { role: "bot", content: txt, id: Date.now() }]);
-      sfxRef.current?.playChirp(); // Play robot vocal talking chirp sound when EVE sends a message!
     }, 900);
   };
 
@@ -375,7 +410,7 @@ export default function EveChat() {
       setIsOpen(false);
     } else {
       setIsOpen(true);
-      if (currentRobotStateRef.current === "idle") {
+      if (robotState === "idle") {
         updateRobotState("giggling");
         setTimeout(() => updateRobotState("idle"), 1500);
       }
@@ -450,7 +485,8 @@ export default function EveChat() {
         </div>
 
         <div className="eve-body" id="eve-body">
-          <div className="eve-head">
+          <div className="eve-body-inner">
+            <div className="eve-head">
             <div className="eve-visor">
               <div className="eve-eye-l" aria-hidden="true">
                 <svg viewBox="0 0 16 10" width="16" height="10" className="eve-eye-svg">
@@ -541,6 +577,7 @@ export default function EveChat() {
               <div className="thrust-ring"></div>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
@@ -622,27 +659,37 @@ export default function EveChat() {
           position: absolute;
           bottom: 0;
           left: 50%;
-          transform: translateX(-50%);
+          transform: translateX(-50%) translateY(0);
           width: 68px;
           height: 165px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: flex-end;
-          transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+          transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .eve-body-inner {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+          position: relative;
         }
 
         /* ── EVE IDLE FLOAT ── */
-        .eve-robot-wrap.idle .eve-body {
+        .eve-robot-wrap.idle .eve-body-inner {
           animation: eveFloat 6s ease-in-out infinite;
         }
 
         @keyframes eveFloat {
           0%, 100% {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
           }
           50% {
-            transform: translateX(-50%) translateY(-12px);
+            transform: translateY(-12px);
           }
         }
 
@@ -841,18 +888,18 @@ export default function EveChat() {
 
         /* ── STATE: SCROLL DOWN (Stable Descent) ── */
         .eve-robot-wrap.falling .eve-body {
-          animation: eveFallDrift 3s ease-in-out infinite;
+          transform: translateX(-50%) translateY(12px) rotate(1.5deg);
+        }
+        .eve-robot-wrap.falling .eve-body-inner {
+          animation: eveFallDrift 4s ease-in-out infinite;
         }
 
         @keyframes eveFallDrift {
           0%, 100% {
-            transform: translateX(-50%) translateY(10px) rotate(0deg);
+            transform: translateY(0) rotate(0deg);
           }
-          25% {
-            transform: translateX(-52%) translateY(14px) rotate(-1.5deg);
-          }
-          75% {
-            transform: translateX(-48%) translateY(6px) rotate(1.5deg);
+          50% {
+            transform: translateY(4px) rotate(0.5deg);
           }
         }
 
@@ -876,18 +923,18 @@ export default function EveChat() {
 
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
         .eve-robot-wrap.flying .eve-body {
-          animation: eveDrift 3s ease-in-out infinite;
+          transform: translateX(-50%) translateY(-32px) rotate(-1.5deg);
+        }
+        .eve-robot-wrap.flying .eve-body-inner {
+          animation: eveDrift 4s ease-in-out infinite;
         }
 
         @keyframes eveDrift {
           0%, 100% {
-            transform: translateX(-50%) translateY(-30px) rotate(0deg);
+            transform: translateY(0) rotate(0deg);
           }
-          25% {
-            transform: translateX(-48%) translateY(-34px) rotate(1deg);
-          }
-          75% {
-            transform: translateX(-52%) translateY(-32px) rotate(-1deg);
+          50% {
+            transform: translateY(-6px) rotate(-0.5deg);
           }
         }
 
@@ -993,15 +1040,18 @@ export default function EveChat() {
 
         /* ── STATE: GIGGLE ── */
         .eve-robot-wrap.giggling .eve-body {
+          transform: translateX(-50%) translateY(-3px) rotate(1.5deg);
+        }
+        .eve-robot-wrap.giggling .eve-body-inner {
           animation: eveGiggle 0.45s ease-in-out infinite alternate;
         }
 
         @keyframes eveGiggle {
           from {
-            transform: translateX(-50%) translateY(0) rotate(0deg);
+            transform: translateY(0) rotate(0deg);
           }
           to {
-            transform: translateX(-50%) translateY(-3px) rotate(1.5deg);
+            transform: translateY(-3px) rotate(1.5deg);
           }
         }
 
