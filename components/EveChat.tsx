@@ -999,13 +999,6 @@ export default function EveChat() {
           transform: translateX(-50%) translateY(-3px) rotate(1.5deg);
         }
 
-        .eve-robot-wrap.giggling .eve-eye-l,
-        .eve-robot-wrap.giggling .eve-eye-r {
-          width: 14px;
-          height: 6px;
-          border-radius: 50% 50% 20% 20%;
-        }
-
         /* Chat panel */
         .eve-chat {
           background: rgba(4, 4, 26, .96);
