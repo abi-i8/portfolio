@@ -52,15 +52,16 @@ class EveSoundFX {
     if (this.ctx) return;
     const AudioContextClass = (window as any).AudioContext || (window as any).webkitAudioContext;
     if (AudioContextClass) {
-      this.ctx = new AudioContextClass();
+      const ctx = new AudioContextClass();
+      this.ctx = ctx;
       
       // Fully unlock Web Audio API on iOS/Android browsers with a silent dummy source play within the user gesture loop
       try {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
         osc.connect(gain);
-        gain.connect(this.ctx.destination);
+        gain.connect(ctx.destination);
         osc.start(0);
         osc.stop(0.001);
       } catch (e) {
