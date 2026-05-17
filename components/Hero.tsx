@@ -10,7 +10,8 @@ export default function Hero() {
     if (!canvasRef.current) return;
     const cv = canvasRef.current;
     const PM = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-    let W = window.innerWidth, H = window.innerHeight;
+    let W = cv.clientWidth || window.innerWidth;
+    let H = cv.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
     const cam = new THREE.PerspectiveCamera(50, W / H, 0.1, 150);
@@ -231,7 +232,8 @@ export default function Hero() {
     };
     const onScroll = () => { sy = window.scrollY; };
     const onResize = () => {
-      W = window.innerWidth; H = window.innerHeight;
+      W = cv.clientWidth || window.innerWidth;
+      H = cv.clientHeight || window.innerHeight;
       cam.aspect = W / H; cam.updateProjectionMatrix();
       rend.setSize(W, H); updatePlanetPos();
     };
@@ -382,6 +384,7 @@ export default function Hero() {
           overflow: hidden;
           display: flex;
           align-items: center;
+          background: #01010a !important;
         }
         #hc {
           position: absolute;
@@ -492,7 +495,7 @@ export default function Hero() {
         }
         @media(max-width: 768px) {
           #hero { height: auto; padding: 100px 0 1.5rem !important; display: block; }
-          #hc { height: 100vh !important; }
+          #hc { height: 100% !important; }
           #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
