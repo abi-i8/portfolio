@@ -843,7 +843,7 @@ export default function EveChat() {
         }
 
         /* ── WAKING UP OPTICAL LENS SWELL ── */
-        .eve-robot-wrap.waking .circle-eye {
+        .eve-robot-wrap.waking .circle-eye.active {
           animation: eyeFocusSwell 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
