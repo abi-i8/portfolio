@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0b0b26" />
+      <stop offset="100%" stop-color="#02020f" />
+    </radialGradient>
+    <radialGradient id="headGrad" cx="35%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#e6ebf5" />
+      <stop offset="100%" stop-color="#b8c4d8" />
+    </radialGradient>
+    <radialGradient id="visorGrad" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#1a1a3a" />
+      <stop offset="80%" stop-color="#000000" />
+    </radialGradient>
+    <radialGradient id="eyeGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#a8f0ff" />
+      <stop offset="50%" stop-color="#00b8ff" />
+      <stop offset="100%" stop-color="#0080cc" />
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur1" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background glass badge -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="rgba(0, 212, 255, 0.12)" stroke-width="6" />
+
+  <!-- EVE's Head Outer Shell -->
+  <path d="M 126 230 C 126 120, 386 120, 386 230 C 386 310, 350 320, 256 320 C 162 320, 126 310, 126 230 Z" fill="url(#headGrad)" filter="drop-shadow(0px 16px 24px rgba(0,0,0,0.5))" />
+
+  <!-- EVE's Visor (Black Glass Faceplate) -->
+  <path d="M 148 230 C 148 152, 364 152, 364 230 C 364 288, 335 292, 256 292 C 177 292, 148 288, 148 230 Z" fill="url(#visorGrad)" />
+
+  <!-- EVE's Glowing Eyes (Futuristic high-fidelity neon blue visage) -->
+  <ellipse cx="204" cy="222" rx="22" ry="18" fill="url(#eyeGrad)" filter="url(#glow)" />
+  <ellipse cx="308" cy="222" rx="22" ry="18" fill="url(#eyeGrad)" filter="url(#glow)" />
+
+  <!-- Visor Reflection -->
+  <path d="M 160 210 C 200 185, 312 185, 352 210 C 320 190, 200 190, 160 210 Z" fill="#ffffff" opacity="0.08" />
+</svg>
