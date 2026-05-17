@@ -272,16 +272,20 @@ export default function EveChat() {
         return;
       }
 
+      const currentState = robotStateRef.current;
+
+      // If EVE is already performing a falling or flying transition, ignore further scroll triggers for this swipe!
+      if (currentState === "falling" || currentState === "flying") {
+        lastScrollY.current = y;
+        return;
+      }
+
       const dir = y > lastScrollY.current ? "falling" : "flying";
       lastScrollY.current = y;
 
-      const currentState = robotStateRef.current;
       updateRobotState(dir);
+      sfxRef.current?.playWhoosh(dir); // Play custom direction swept sci-fi whoosh!
       
-      // Only play whoosh if EVE is starting a brand new scroll action (transitioning from idle or closed)
-      if (currentState === "idle" || currentState === "closed") {
-        sfxRef.current?.playWhoosh(dir);
-      }
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
       scrollTimer.current = setTimeout(() => {
         updateRobotState("idle");
