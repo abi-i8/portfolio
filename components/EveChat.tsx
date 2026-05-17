@@ -277,6 +277,10 @@ export default function EveChat() {
       // If EVE is already performing a falling or flying transition, ignore further scroll triggers for this swipe!
       if (currentState === "falling" || currentState === "flying") {
         lastScrollY.current = y;
+        if (scrollTimer.current) clearTimeout(scrollTimer.current);
+        scrollTimer.current = setTimeout(() => {
+          updateRobotState("idle");
+        }, 900);
         return;
       }
 
