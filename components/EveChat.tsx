@@ -47,9 +47,6 @@ const KB = [
 // Client-side Web Audio SFX Class for EVE (giggle chirps and scroll whooshes)
 class EveSoundFX {
   public ctx: AudioContext | null = null;
-  private activeOsc: OscillatorNode | null = null;
-  private activeGain: GainNode | null = null;
-  private activeFilter: BiquadFilterNode | null = null;
 
   init() {
     if (this.ctx) return;
@@ -122,77 +119,6 @@ class EveSoundFX {
       osc2.start(now + f.time);
       osc2.stop(now + f.time + f.dur + 0.2);
     });
-  }
-
-  // Synthesizes a continuous sci-fi breeze whoosh that plays smoothly as long as EVE is moving
-  startWhoosh(direction: "falling" | "flying") {
-    this.init();
-    if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-
-    const t = this.ctx.currentTime;
-
-    // If a continuous whoosh is already active, glide its frequency/gain seamlessly without visual/audio popping
-    if (this.activeOsc && this.activeGain) {
-      const targetFreq = direction === "flying" ? 480 : 220;
-      this.activeOsc.frequency.cancelScheduledValues(t);
-      this.activeOsc.frequency.exponentialRampToValueAtTime(targetFreq, t + 0.35);
-
-      this.activeGain.gain.cancelScheduledValues(t);
-      this.activeGain.gain.linearRampToValueAtTime(0.14, t + 0.15);
-      return;
-    }
-
-    // Synthesize a continuous wind whoosh
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    const filter = this.ctx.createBiquadFilter();
-
-    osc.type = 'triangle';
-    
-    const startFreq = direction === "flying" ? 260 : 380;
-    const targetFreq = direction === "flying" ? 480 : 220;
-    osc.frequency.setValueAtTime(startFreq, t);
-    osc.frequency.exponentialRampToValueAtTime(targetFreq, t + 0.45);
-
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.14, t + 0.2); // Smooth ramp up
-
-    // Lowpass filter creates an airy, futuristic space breeze glow
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(620, t);
-
-    osc.connect(gain);
-    gain.connect(filter);
-    filter.connect(this.ctx.destination);
-
-    osc.start(t);
-
-    this.activeOsc = osc;
-    this.activeGain = gain;
-    this.activeFilter = filter;
-  }
-
-  // Gracefully fades out the continuous wind whoosh sound over 0.4 seconds when EVE lands/stops
-  stopWhoosh() {
-    if (!this.ctx || !this.activeOsc || !this.activeGain) return;
-    const t = this.ctx.currentTime;
-
-    const osc = this.activeOsc;
-    const gain = this.activeGain;
-
-    try {
-      gain.gain.cancelScheduledValues(t);
-      gain.gain.setValueAtTime(gain.gain.value, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
-      osc.stop(t + 0.45);
-    } catch (e) {
-      // Safe boundary catch
-    }
-
-    this.activeOsc = null;
-    this.activeGain = null;
-    this.activeFilter = null;
   }
 }
 
@@ -319,11 +245,9 @@ export default function EveChat() {
       lastScrollY.current = y;
 
       updateRobotState(dir);
-      sfxRef.current?.startWhoosh(dir); // Play continuous custom sci-fi wind breeze!
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
       scrollTimer.current = setTimeout(() => {
         updateRobotState("idle");
-        sfxRef.current?.stopWhoosh(); // Smoothly fade out custom scroll wind!
       }, 300); // Highly responsive, natural scroll debounce duration
     };
 
