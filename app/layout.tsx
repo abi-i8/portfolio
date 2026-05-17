@@ -22,7 +22,7 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://abijith.vercel.app'),
+  metadataBase: new URL('https://abi-i8.vercel.app'),
   title: {
     default: "Abijith A R | Creative Media Technologist & AI Creative Specialist",
     template: "%s | Abijith A R"
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Abijith A R | Creative Media Technologist & AI Creative Specialist",
     description: "Creative Media Technologist specializing in AI-assisted creative production, immersive Three.js digital experiences, and visual branding.",
-    url: "https://abijith.vercel.app",
+    url: "https://abi-i8.vercel.app",
     siteName: "Abijith A R Portfolio",
     locale: "en_US",
     type: "website",

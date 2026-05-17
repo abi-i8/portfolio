@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   // Replace with Abijith A R's verified custom production domain once connected
-  const baseUrl = 'https://abijith.vercel.app';
+  const baseUrl = 'https://abi-i8.vercel.app';
 
   return {
     rules: {

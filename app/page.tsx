@@ -24,8 +24,8 @@ export default function Home() {
     "@type": "Person",
     "name": "Abijith A R",
     "jobTitle": "Creative Media Specialist & Technologist",
-    "url": "https://abijith.vercel.app",
-    "image": "https://abijith.vercel.app/DP.jpg",
+    "url": "https://abi-i8.vercel.app",
+    "image": "https://abi-i8.vercel.app/DP.jpg",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Kochi",
