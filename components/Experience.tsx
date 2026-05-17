@@ -40,6 +40,10 @@ export default function Experience() {
         #exp {
           padding-bottom: clamp(1.5rem, 3vw, 2.5rem) !important;
         }
+        .sh {
+          margin-top: 1.2rem !important;
+          margin-bottom: clamp(2.5rem, 5vw, 4rem) !important;
+        }
         .tl { position: relative; padding-left: 1.5rem }
         .tl::before {
           content: '';
@@ -110,6 +114,10 @@ export default function Experience() {
         @media(max-width:768px) {
           #exp {
             padding-bottom: 1.2rem !important;
+          }
+          .sh {
+            margin-top: 1rem !important;
+            margin-bottom: 2.2rem !important;
           }
           .tl { padding-left: 0 !important; }
           .tl::before { left: 4px !important; } /* Move timeline line to the left edge to save reading space */
