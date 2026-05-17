@@ -1202,7 +1202,7 @@ export default function EveChat() {
           .eve-robot-wrap {
             transform: scale(0.6) !important;
             transform-origin: bottom right !important;
-            opacity: 0.9;
+            opacity: 1 !important;
             z-index: 90 !important;
           }
 

@@ -31,7 +31,7 @@ export default function About() {
           </p>
           <p className="reveal in d3">
             Combining an MBA's strategic depth with hands-on mastery of
-            <strong>Three.js, WebGL, After Effects, and Generative AI</strong> - building
+            <strong> Three.js, WebGL, After Effects, and Generative AI</strong> - building
             experiences that live at the edge of craft and code.
           </p>
           <p className="reveal in d4">

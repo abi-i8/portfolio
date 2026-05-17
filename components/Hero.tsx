@@ -27,10 +27,9 @@ export default function Hero() {
     rend.setSize(W, H);
     rend.setClearColor(0x01010a, 1);
 
+    cv.style.opacity = "1";
     const manager = new THREE.LoadingManager();
-    manager.onLoad = () => {
-      cv.style.opacity = "1";
-    };
+    manager.onLoad = () => {};
     const txl = new THREE.TextureLoader(manager);
 
     const sunDir = new THREE.Vector3(-2, 0.5, 1.5).normalize();
@@ -389,7 +388,7 @@ export default function Hero() {
           inset: 0;
           width: 100%;
           height: 100%;
-          opacity: 0;
+          opacity: 1;
           transition: opacity 0.4s ease;
         }
         #hero::after {
@@ -493,6 +492,8 @@ export default function Hero() {
         }
         @media(max-width: 768px) {
           #hero { height: auto; padding: 100px 0 1.5rem !important; display: block; }
+          #hc { height: 100vh !important; }
+          #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
           .p-card {
