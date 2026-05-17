@@ -677,11 +677,11 @@ export default function EveChat() {
           align-items: center;
           justify-content: flex-end;
           position: relative;
+          animation: eveFloat 6s ease-in-out infinite; /* Continuous, uninterrupted, elegant unified floating bob */
         }
 
-        /* ── EVE IDLE FLOAT ── */
-        .eve-robot-wrap.idle .eve-body-inner {
-          animation: eveFloat 6s ease-in-out infinite;
+        .eve-robot-wrap.closed .eve-body-inner {
+          animation-play-state: paused; /* Pauses bobbing when tucked away */
         }
 
         @keyframes eveFloat {
@@ -890,18 +890,6 @@ export default function EveChat() {
         .eve-robot-wrap.falling .eve-body {
           transform: translateX(-50%) translateY(12px) rotate(1.5deg);
         }
-        .eve-robot-wrap.falling .eve-body-inner {
-          animation: eveFallDrift 4s ease-in-out infinite;
-        }
-
-        @keyframes eveFallDrift {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(4px) rotate(0.5deg);
-          }
-        }
 
         .eve-robot-wrap.falling .eve-head {
           transform: translateY(3px);
@@ -924,18 +912,6 @@ export default function EveChat() {
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
         .eve-robot-wrap.flying .eve-body {
           transform: translateX(-50%) translateY(-32px) rotate(-1.5deg);
-        }
-        .eve-robot-wrap.flying .eve-body-inner {
-          animation: eveDrift 4s ease-in-out infinite;
-        }
-
-        @keyframes eveDrift {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-6px) rotate(-0.5deg);
-          }
         }
 
         .eve-robot-wrap.flying .eve-head {
@@ -1041,18 +1017,6 @@ export default function EveChat() {
         /* ── STATE: GIGGLE ── */
         .eve-robot-wrap.giggling .eve-body {
           transform: translateX(-50%) translateY(-3px) rotate(1.5deg);
-        }
-        .eve-robot-wrap.giggling .eve-body-inner {
-          animation: eveGiggle 0.45s ease-in-out infinite alternate;
-        }
-
-        @keyframes eveGiggle {
-          from {
-            transform: translateY(0) rotate(0deg);
-          }
-          to {
-            transform: translateY(-3px) rotate(1.5deg);
-          }
         }
 
         .eve-robot-wrap.giggling .eve-eye-l,
