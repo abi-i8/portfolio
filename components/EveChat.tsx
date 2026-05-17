@@ -147,7 +147,8 @@ export default function EveChat() {
   const [userName, setUserName] = useState("");
   
   // Custom cute EVE eye expressions: normal glowing blue, happy arches, or closed blinking!
-  const [eyeExpr, setEyeExpr] = useState<"normal" | "happy" | "closed">("normal");
+  const [eyeExpr, setEyeExpr] = useState<"normal" | "happy" | "closed">("closed");
+  const [isWaking, setIsWaking] = useState(false);
 
   const msgsRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
@@ -229,6 +230,10 @@ export default function EveChat() {
       
       setRobotState(prev => {
         if (prev === "closed") {
+          setIsWaking(true);
+          setEyeExpr("normal");
+          setTimeout(() => setIsWaking(false), 1200);
+
           autoOpenTimerRef.current = setTimeout(() => {
             if (hasInteractedRef.current) return;
             setIsOpen(true);
@@ -412,7 +417,7 @@ export default function EveChat() {
 
       {/* Robot */}
       <div 
-        className={`eve-robot-wrap ${robotState}`} 
+        className={`eve-robot-wrap ${robotState} ${isWaking ? "waking" : ""}`} 
         id="eve" 
         role="button" 
         tabIndex={0} 
@@ -830,6 +835,35 @@ export default function EveChat() {
         .eve-robot-wrap.closed .eve-arm.r {
           transform: translate(-4px, 2px) rotate(0deg);
           opacity: 1;
+        }
+
+        .eve-robot-wrap.closed .eye-shape {
+          opacity: 0 !important;
+          transform: scale(0) !important;
+        }
+
+        /* ── WAKING UP OPTICAL LENS SWELL ── */
+        .eve-robot-wrap.waking .circle-eye {
+          animation: eyeFocusSwell 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes eyeFocusSwell {
+          0% {
+            transform: scale(0) translateY(1.5px);
+            opacity: 0;
+          }
+          30% {
+            transform: scale(0) translateY(1.5px);
+            opacity: 0;
+          }
+          75% {
+            transform: scale(1.22) translateY(-0.5px);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+          }
         }
 
         /* ── STATE: SCROLL DOWN (Stable Descent) ── */
