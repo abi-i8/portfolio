@@ -850,6 +850,11 @@ export default function EveChat() {
           transform: rotate(-160deg) translateY(-5px);
         }
 
+        /* Elongated droplet ovals on descent (Scroll Down) */
+        .eve-robot-wrap.falling .circle-eye {
+          transform: scaleY(1.35) scaleX(0.8) !important;
+        }
+
         /* ── STATE: SCROLL UP (Cinematic Flight) ── */
         .eve-robot-wrap.flying .eve-body {
           transform: translateX(-50%) translateY(-20px) rotate(-1deg);
@@ -866,6 +871,11 @@ export default function EveChat() {
 
         .eve-robot-wrap.flying .eve-arm.r {
           transform: translate(-6px, 2px) rotate(0deg);
+        }
+
+        /* Flattened squinty ovals on flight (Scroll Up) */
+        .eve-robot-wrap.flying .circle-eye {
+          transform: scaleY(0.55) scaleX(1.15) !important;
         }
 
         /* ── CINEMATIC PROPULSION ── */
