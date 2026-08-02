@@ -16,9 +16,6 @@
   --brd: rgba(124, 77, 255, .45);
   --brd2: rgba(0, 212, 255, .4);
   --nh: 72px;
-  --ru: var(--font-outfit), sans-serif;
-  --ex: var(--font-outfit), sans-serif;
-  --ba: var(--font-inter), sans-serif;
   --sp: cubic-bezier(.16, 1, .3, 1);
 }
 

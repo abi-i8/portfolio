@@ -6,14 +6,21 @@ import StyledJsxRegistry from "./registry";
 const outfit = Outfit({ 
   subsets: ["latin"], 
   weight: ["300", "400", "500", "600", "700"], 
-  variable: "--font-outfit",
+  variable: "--ru",
+  display: 'swap',
+});
+
+const outfitEx = Outfit({ 
+  subsets: ["latin"], 
+  weight: ["300", "400", "500", "600", "700"], 
+  variable: "--ex",
   display: 'swap',
 });
 
 const inter = Inter({ 
   subsets: ["latin"], 
   weight: ["300", "400", "500", "600"], 
-  variable: "--font-inter",
+  variable: "--ba",
   display: 'swap',
 });
 
@@ -83,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable}`} style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
+    <html lang="en" className={`${outfit.variable} ${outfitEx.variable} ${inter.variable}`} style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
       <body>
         <StyledJsxRegistry>
           {children}
