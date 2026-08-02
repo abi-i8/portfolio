@@ -83,8 +83,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
-      <body className={`${outfit.variable} ${inter.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${inter.variable}`} style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
+      <body>
         <StyledJsxRegistry>
           {children}
         </StyledJsxRegistry>
