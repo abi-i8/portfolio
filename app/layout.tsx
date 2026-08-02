@@ -1,38 +1,34 @@
 import type { Metadata } from "next";
-import { Russo_One, Exo_2, Barlow } from "next/font/google";
+import { Space_Grotesk, Archivo } from "next/font/google";
 import "./globals.css";
 import StyledJsxRegistry from "./registry";
 
-const russo = Russo_One({ 
+const spaceGrotesk = Space_Grotesk({ 
   subsets: ["latin"], 
-  weight: "400", 
-  variable: "--ru",
+  weight: ["300", "400", "500", "600", "700"], 
+  variable: "--font-space",
   display: 'swap',
 });
-const exo2 = Exo_2({ 
+
+const archivo = Archivo({ 
   subsets: ["latin"], 
-  variable: "--ex",
-  display: 'swap',
-});
-const barlow = Barlow({ 
-  subsets: ["latin"], 
-  weight: ["200", "300", "400", "500"], 
-  variable: "--ba",
+  weight: ["300", "400", "500", "600", "700"], 
+  variable: "--font-archivo",
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://abi-i8.vercel.app'),
   title: {
-    default: "Abijith A R | Creative Media Technologist & AI Creative Specialist",
+    default: "Abijith A R | Creative Media Specialist & Software Engineer",
     template: "%s | Abijith A R"
   },
-  description: "Portfolio of Abijith A R - Creative Media Technologist, AI Creative Specialist, and Front-End Creative Developer in Kochi, Kerala, India. Specialize in Three.js, WebGL, visual branding, cinematic visuals, and prompt engineering.",
+  description: "Portfolio of Abijith A R - Creative Media Specialist and Software Engineer in Kochi, Kerala, India. Specialize in Three.js, WebGL, AI creative production, cross-platform app development, and visual branding.",
   keywords: [
     "Abijith A R",
-    "Creative Media Technologist",
-    "AI Creative Specialist",
-    "Front-End Creative Developer",
+    "Creative Media Specialist",
+    "Software Engineer",
+    "Front-End Developer",
     "Kochi Developer",
     "Three.js Portfolio",
     "WebGL Portfolio",
@@ -47,8 +43,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Abijith A R | Creative Media Technologist & AI Creative Specialist",
-    description: "Creative Media Technologist specializing in AI-assisted creative production, immersive Three.js digital experiences, and visual branding.",
+    title: "Abijith A R | Creative Media Specialist & Software Engineer",
+    description: "Creative Media Specialist and Software Engineer specializing in AI-assisted creative production, immersive Three.js digital experiences, and cross-platform app development.",
     url: "https://abi-i8.vercel.app",
     siteName: "Abijith A R Portfolio",
     locale: "en_US",
@@ -64,8 +60,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abijith A R | Creative Media Technologist",
-    description: "Creative Media Technologist specializing in AI workflows, Three.js, and immersive digital experiences.",
+    title: "Abijith A R | Creative Media Specialist & Software Engineer",
+    description: "Creative Media Specialist and Software Engineer specializing in AI workflows, Three.js, and immersive digital experiences.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -88,7 +84,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
-      <body className={`${russo.variable} ${exo2.variable} ${barlow.variable}`}>
+      <body className={`${spaceGrotesk.variable} ${archivo.variable}`}>
         <StyledJsxRegistry>
           {children}
         </StyledJsxRegistry>

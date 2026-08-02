@@ -319,7 +319,7 @@ export default function Hero() {
                 <div className="p-status" />
               </div>
               <div className="p-name">Abijith A R</div>
-              <span className="p-tag">Creative Media Technologist</span>
+              <span className="p-tag">Creative Media Specialist | Software Engineer (Web, Android &amp; iOS)</span>
               <div className="p-stats">
                 <div className="p-stat">
                   <span className="p-stat-val">5+</span>
@@ -339,14 +339,10 @@ export default function Hero() {
 
           <div className={`h-left ${collapsed ? "collapsed" : ""}`} id="h-desc-box">
             <p>
-              Creative Media Technologist specializing in AI-assisted creative production, multimedia storytelling,
-              branding, and front-end creative development.
+              Creative Media Specialist and Software Engineer with expertise in AI-assisted creative production, multimedia storytelling, branding, and cross-platform application development.
             </p>
             <p className="h-second-p">
-              Experienced in designing advertising creatives, producing cinematic photo/video content, and developing
-              visually immersive digital experiences using technologies such as Three.js and WebGL. Skilled in combining
-              creativity, marketing strategy, AI workflows, and visual communication to create modern, performance-driven
-              digital experiences.
+              Experienced in designing impactful campaigns, producing cinematic content, and developing scalable web, Android, and iOS applications using technologies like Three.js and WebGL. Skilled in integrating software engineering, AI workflows, and digital marketing to build user-focused digital products and immersive experiences.
             </p>
             <button className="h-read-more" onClick={() => setCollapsed(!collapsed)}>
               {collapsed ? "Read More" : "Read Less"}

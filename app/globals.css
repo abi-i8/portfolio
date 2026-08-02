@@ -1,24 +1,24 @@
 :root {
-  --void: #01010A;
-  --deep: #04041A;
-  --sf: #080820;
-  --sf2: #0D0D2E;
-  --neon: #7C4DFF;
-  --neonb: #A080FF;
-  --neon2: rgba(124, 77, 255, .18);
-  --cyan: #00D4FF;
-  --cyand: rgba(0, 212, 255, .12);
-  --gold: #FFB84D;
-  --goldd: rgba(255, 184, 77, .12);
-  --txt: #C8DDFF;
-  --muted: #566899;
-  --dim: #465680;
-  --brd: rgba(124, 77, 255, .45);
-  --brd2: rgba(0, 212, 255, .4);
+  --void: #0F172A;
+  --deep: #1E293B;
+  --sf: #334155;
+  --sf2: #475569;
+  --neon: #3B82F6;
+  --neonb: #60A5FA;
+  --neon2: rgba(59, 130, 246, .18);
+  --cyan: #22C55E;
+  --cyand: rgba(34, 197, 94, .12);
+  --gold: #F59E0B;
+  --goldd: rgba(245, 158, 11, .12);
+  --txt: #F8FAFC;
+  --muted: #94A3B8;
+  --dim: #64748B;
+  --brd: rgba(59, 130, 246, .45);
+  --brd2: rgba(34, 197, 94, .4);
   --nh: 72px;
-  --ru: 'Russo One', sans-serif;
-  --ex: 'Exo 2', sans-serif;
-  --ba: 'Barlow', sans-serif;
+  --ru: var(--font-space), sans-serif;
+  --ex: var(--font-space), sans-serif;
+  --ba: var(--font-archivo), sans-serif;
   --sp: cubic-bezier(.16, 1, .3, 1);
 }
 
