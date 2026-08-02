@@ -30,7 +30,7 @@ export default function Hero() {
 
     cv.style.opacity = "1";
     const manager = new THREE.LoadingManager();
-    manager.onLoad = () => {};
+    manager.onLoad = () => { };
     const txl = new THREE.TextureLoader(manager);
 
     const sunDir = new THREE.Vector3(-2, 0.5, 1.5).normalize();
@@ -268,7 +268,7 @@ export default function Hero() {
         rings.forEach((r) => { r.rotation.x += 0.00025; });
         moonGroup.rotation.y += 0.008;
         galaxy.rotation.y = t * 0.05 + cx * 0.025; galaxy.rotation.x = t * 0.016 + cy * 0.012;
-        
+
         /* shooting star */
         shotTimer += 0.016;
         if (shotTimer > 5.5) {
@@ -319,7 +319,7 @@ export default function Hero() {
                 <div className="p-status" />
               </div>
               <div className="p-name">Abijith A R</div>
-              <span className="p-tag">Creative Media Specialist | Software Engineer (Web, Android &amp; iOS)</span>
+              <span className="p-tag">Creative Media Specialist <br /> Software Engineer <br /> (Web, Android &amp; iOS)</span>
               <div className="p-stats">
                 <div className="p-stat">
                   <span className="p-stat-val">5+</span>
@@ -330,7 +330,7 @@ export default function Hero() {
                   <span className="p-stat-lbl">Stacks</span>
                 </div>
                 <div className="p-stat">
-                  <span className="p-stat-val">24+</span>
+                  <span className="p-stat-val">36+</span>
                   <span className="p-stat-lbl">Clients</span>
                 </div>
               </div>

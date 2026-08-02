@@ -54,10 +54,10 @@ export default function About() {
           </div>
           <div className="scard reveal in d2" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <div className="snum">12+</div>
-            <div className="stxt">Technical Stacks - Expertise across Creative Media, AI Workflows &amp; Front-End</div>
+            <div className="stxt">Technical Stacks - Expertise across Creative Media, AI Workflows &amp; Full-Stack</div>
           </div>
           <div className="scard reveal in d3" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <div className="snum">24+</div>
+            <div className="snum">36+</div>
             <div className="stxt">Clients - Delivering high-impact creative solutions for global brands &amp; agencies</div>
           </div>
         </div>
