@@ -490,12 +490,12 @@ export default function Hero() {
           .h-left { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-left: 0; padding-top: 2.5rem; }
         }
         @media(max-width: 768px) {
-          #hero { height: auto; padding: 100px 0 1.5rem !important; display: block; }
+          #hero { height: auto; padding: 100px 0 6.5rem !important; display: block; }
           #hc { height: 100% !important; }
           #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
-          .scr { display: none !important; }
+          .scr { bottom: 1.5rem !important; }
           .p-card {
             transform: none !important;
             margin: 0 auto !important;
