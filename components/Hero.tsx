@@ -459,11 +459,11 @@ export default function Hero() {
           border-color: rgba(0, 212, 255, 0.3);
         }
         .p-name {
-          font-family: var(--ba);
-          font-weight: 800;
-          font-size: 1.3rem;
+          font-family: var(--ru);
+          font-weight: 700;
+          font-size: 1.35rem;
           margin: 1.2rem 0 0.2rem;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.1em;
           background: linear-gradient(90deg, #fff, var(--neon), #bd00ff, var(--neon), #fff);
           background-size: 200% auto;
           -webkit-background-clip: text;
@@ -480,7 +480,7 @@ export default function Hero() {
         .p-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; margin-top: 1rem; }
         .p-stat-val { display: block; font-family: var(--ru); font-size: 1.1rem; color: var(--txt); }
         .p-stat-lbl { font-size: 0.65rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
-        .scr { position: absolute; bottom: 0.8rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-family: var(--ex); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+        .scr { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-family: var(--ex); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
         .scr::after { content: ''; width: 1px; height: 50px; background: linear-gradient(to bottom, transparent, var(--cyan), transparent); opacity: 0.8; animation: sb 2.5s ease-in-out infinite; }
         @keyframes sb { 0% { opacity: 0; transform: scaleY(0); transform-origin: top } 40% { opacity: 1; transform: scaleY(1); transform-origin: top } 60% { opacity: 1; transform: scaleY(1); transform-origin: bottom } 100% { opacity: 0; transform: scaleY(0); transform-origin: bottom } }
         .h-read-more { display: none; }
@@ -495,6 +495,7 @@ export default function Hero() {
           #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
+          .scr { display: none !important; }
           .p-card {
             transform: none !important;
             margin: 0 auto !important;

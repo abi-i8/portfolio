@@ -128,8 +128,8 @@ export default function About() {
         }
         .snum {
           font-family: var(--ru);
-          font-size: 4rem;
-          font-weight: 400;
+          font-size: 4.5rem;
+          font-weight: 700;
           line-height: 1;
           color: var(--cyan);
           margin-bottom: .35rem;
