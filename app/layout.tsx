@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Archivo } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import StyledJsxRegistry from "./registry";
 
-const spaceGrotesk = Space_Grotesk({ 
+const outfit = Outfit({ 
   subsets: ["latin"], 
   weight: ["300", "400", "500", "600", "700"], 
-  variable: "--font-space",
+  variable: "--font-outfit",
   display: 'swap',
 });
 
-const archivo = Archivo({ 
+const inter = Inter({ 
   subsets: ["latin"], 
-  weight: ["300", "400", "500", "600", "700"], 
-  variable: "--font-archivo",
+  weight: ["300", "400", "500", "600"], 
+  variable: "--font-inter",
   display: 'swap',
 });
 
@@ -84,7 +84,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} ${archivo.variable}`}>
+      <body className={`${outfit.variable} ${inter.variable}`}>
         <StyledJsxRegistry>
           {children}
         </StyledJsxRegistry>
