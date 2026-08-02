@@ -11,27 +11,51 @@ export default function Experience() {
       <div className="tl" role="list">
         <article className="te reveal in" role="listitem">
           <div className="tdot" aria-hidden="true"></div>
-          <div className="tdate">2025 - Present</div>
-          <h3 className="trole">Creative Media Specialist</h3>
-          <div className="tco">WebCastle Media</div>
+          <div className="tdate">June 2026 - Present</div>
+          <h3 className="trole">Creative Head</h3>
+          <div className="tco">Adnora Productions</div>
           <ul className="tpts">
-            <li>Designed advertising creatives, promotional graphics, and multimedia content for digital marketing campaigns.</li>
-            <li>Produced and edited professional photography, cinematic video, and UGC-style campaigns for branding and social media.</li>
-            <li>Maintained consistent visual identity across platforms - working with marketing strategists, designers, and content teams.</li>
-            <li>Led creative execution using Adobe Creative Suite, Figma, generative AI tools, Three.js, and WebGL.</li>
-            <li>Contributed to campaign strategy, audience engagement, and brand communication decisions.</li>
+            <li>Lead the creative vision and execution of branding, advertising campaigns, and digital media projects.</li>
+            <li>Manage and mentor a multidisciplinary team, ensuring high-quality deliverables within project timelines.</li>
+            <li>Integrate AI-powered creative workflows to optimize design, content creation, and production efficiency.</li>
+            <li>Lead the development of websites, web applications, and cross-platform software solutions.</li>
           </ul>
         </article>
 
         <article className="te reveal in d1" role="listitem">
           <div className="tdot" aria-hidden="true"></div>
-          <div className="tdate">2020 - Present</div>
-          <h3 className="trole">Freelance Creative Designer &amp; Content Creator</h3>
-          <div className="tco">Independent</div>
+          <div className="tdate">Jan 2020 - Present</div>
+          <h3 className="trole">Content Creator &amp; Software Engineer (Web, Android &amp; iOS)</h3>
+          <div className="tco">Freelance</div>
           <ul className="tpts">
-            <li>Delivered branding visuals, social media creatives, and promotional content for brands and businesses.</li>
-            <li>Produced photography, videography, and AI-assisted content generation workflows.</li>
-            <li>Developed interactive and visually immersive digital concepts using front-end technologies.</li>
+            <li>Design and develop responsive websites, cross-platform mobile apps, and custom software solutions.</li>
+            <li>Deliver creative branding solutions, including visual identities, marketing materials, and promotional content.</li>
+            <li>Build interactive web experiences using modern technologies including Three.js and WebGL.</li>
+            <li>Leverage AI-assisted workflows for content creation, image/video generation, and creative automation.</li>
+          </ul>
+        </article>
+
+        <article className="te reveal in d2" role="listitem">
+          <div className="tdot" aria-hidden="true"></div>
+          <div className="tdate">Sept 2025 - June 2026</div>
+          <h3 className="trole">Creative Media Specialist</h3>
+          <div className="tco">WebCastle Media</div>
+          <ul className="tpts">
+            <li>Created visual content to strengthen brand identity and digital presence for in-house and external brands.</li>
+            <li>Specialized in AI-assisted content creation using advanced prompt engineering workflows.</li>
+            <li>Shot and edited multimedia marketing campaigns, commercial advertisements, and UGC-style content.</li>
+            <li>Created interactive web visuals and immersive digital experiences using Three.js and front-end technologies.</li>
+          </ul>
+        </article>
+        
+        <article className="te reveal in d3" role="listitem">
+          <div className="tdot" aria-hidden="true"></div>
+          <div className="tdate">April 2024 - June 2024</div>
+          <h3 className="trole">Intern</h3>
+          <div className="tco">Southern Travels Pvt. Ltd.</div>
+          <ul className="tpts">
+            <li>Assisted in planning and coordinating trade shows, events, and tourism-related operations.</li>
+            <li>Collaborated with internal teams and stakeholders to support event execution and logistics.</li>
           </ul>
         </article>
       </div>

@@ -19,11 +19,11 @@ export default function Home() {
     "Motion Design", "Visual Branding", "Prompt Engineering", "Digital Marketing"
   ];
 
-  const jsonLd = {
+    const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Abijith A R",
-    "jobTitle": "Creative Media Specialist & Technologist",
+    "jobTitle": "Creative Media Specialist & Software Engineer",
     "url": "https://abi-i8.vercel.app",
     "image": "https://abi-i8.vercel.app/DP.jpg",
     "address": {
@@ -53,13 +53,14 @@ export default function Home() {
       {
         "@type": "EducationalOccupationalCredential",
         "credentialCategory": "certification",
-        "name": "Online Learning & Multimedia Applications"
+        "name": "Web Based Technologies and Multimedia Applications",
+        "about": "IGNOU (2024)"
       }
     ],
     "worksFor": [
       {
         "@type": "Organization",
-        "name": "WebCastle Media",
+        "name": "Adnora Productions",
         "location": {
           "@type": "Place",
           "address": {

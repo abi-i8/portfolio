@@ -24,26 +24,26 @@ export default function About() {
         <div className="atxt">
           <h2 id="about-h" className="reveal in d1">Multidisciplinary<br /><em style={{ color: 'var(--cyan)', fontStyle: 'italic' }}>by Design.</em></h2>
           <p className="reveal in d2" style={{ marginTop: '1.8rem' }}>
-            A <strong>Creative Media Technologist</strong> where my <strong>Core Disciplines</strong> - Creative Media,
+            A <strong>Creative Media Specialist &amp; Software Engineer</strong> where my <strong>Core Disciplines</strong> - Creative Media,
             Visual Branding,
             AI-assisted
-            Creative Workflows, and Front-End Development converge into one fluid, purposeful practice.
+            Workflows, and Full-Stack Development converge into one fluid, purposeful practice.
           </p>
           <p className="reveal in d3">
             Combining an MBA's strategic depth with hands-on mastery of
-            <strong> Three.js, WebGL, After Effects, and Generative AI</strong> - building
-            experiences that live at the edge of craft and code.
+            <strong> Three.js, WebGL, React, and Generative AI</strong> - building
+            experiences that live at the edge of craft and code across Web, Android &amp; iOS.
           </p>
           <p className="reveal in d4">
             Whether directing a cinematic shoot, designing a brand identity, or
-            engineering an immersive digital experience - precision, intelligence, and
+            engineering a scalable, immersive application - precision, intelligence, and
             taste guide every decision.
           </p>
           <div className="adiv reveal in d4"></div>
           <ul className="fl reveal in d4" role="list">
             <li><span className="fk">Base</span><span className="fv">Kerala, India</span></li>
-            <li><span className="fk">Currently</span><span className="fv">Creative Media Specialist · WebCastle Media</span></li>
-            <li><span className="fk">Focus</span><span className="fv">Creative Media · AI Workflows · Three.js · WebGL · Branding</span></li>
+            <li><span className="fk">Currently</span><span className="fv">Creative Head · Adnora Productions</span></li>
+            <li><span className="fk">Focus</span><span className="fv">Software Engineering · AI Workflows · Three.js · Branding</span></li>
             <li><span className="fk">Speaks</span><span className="fv">English · Malayalam · Hindi · Tamil</span></li>
           </ul>
         </div>

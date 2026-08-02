@@ -4,7 +4,7 @@ export default function Expertise() {
     { num: '01', title: 'Creative Production', desc: 'Directing cinematic content, professional photography, and AI-assisted production workflows.', tags: ['Creative Direction', 'Photography', 'Videography', 'UGC Campaigns'] },
     { num: '02', title: 'Design & Visual', desc: 'Crafting brand identities and high-conversion advertising creatives for digital platforms.', tags: ['Branding', 'UI/UX Design', 'Visual Communication', 'Figma'] },
     { num: '03', title: 'Adobe Suite', desc: 'Expert-level execution across the creative cloud for high-end post-production.', tags: ['Photoshop', 'After Effects', 'Premiere Pro', 'DaVinci Resolve'] },
-    { num: '04', title: 'Front-End Dev', desc: 'Engineering interactive, immersive digital experiences with modern web technologies.', tags: ['Three.js', 'WebGL', 'JavaScript', 'Responsive UI'] },
+    { num: '04', title: 'Software Engineering', desc: 'Engineering interactive web, Android, and iOS applications with modern technologies.', tags: ['React', 'Flutter', 'Three.js', 'Supabase', 'SQL'] },
     { num: '05', title: 'AI & Automation', desc: 'Optimizing creative outputs through prompt engineering and custom AI workflows.', tags: ['Prompt Engineering', 'Claude', 'ChatGPT', 'Workflow Automation'] },
     { num: '06', title: 'Strategy & Marketing', desc: 'MBA-backed digital strategies focused on brand communication and team leadership.', tags: ['Digital Marketing', 'Campaign Strategy', 'Team Leadership', 'Project Management'] },
   ];

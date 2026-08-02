@@ -30,13 +30,17 @@ export default function Education() {
             <div className="ei reveal in d2" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
               <h3 className="edeg">BA English Literature</h3>
               <div className="esch">Kannur University</div>
-              <div className="emeta"><span>2020 - 2023</span><span>CGPA 6.83</span></div>
+              <div className="emeta"><span>Oct 2020 - April 2023</span></div>
             </div>
-            <div className="reveal in d3" style={{ marginTop: '1rem' }}>
+            <div className="ei reveal in d3" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+              <h3 className="edeg">Diploma, Full Stack Developer</h3>
+              <div className="esch">Zoople Technologies</div>
+              <div className="emeta"><span>August 2023</span></div>
+            </div>
+            <div className="reveal in d4" style={{ marginTop: '1rem' }}>
               <div className="label" style={{ margin: '0.8rem 0 0.8rem' }}>Certifications</div>
               <div className="certs">
-                <div className="cert">Web Based Technologies &amp; Multimedia Applications</div>
-                <div className="cert">Online Learning &amp; Multimedia Applications</div>
+                <div className="cert">Web Based Technologies and Multimedia Applications · IGNOU</div>
               </div>
             </div>
           </div>
