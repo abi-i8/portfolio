@@ -495,15 +495,15 @@ export default function Hero() {
         .h-read-more { display: none; }
 
         @media(max-width: 968px) {
-          .h-dash { grid-template-columns: 1fr; padding: 2.5rem; gap: 3rem; border-radius: 1.5rem; }
-          .h-left { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-left: 0; padding-top: 2.5rem; }
+          .h-dash { display: flex; flex-direction: column-reverse; padding: 2.5rem; gap: 3rem; border-radius: 1.5rem; }
+          .h-left { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-left: 0; padding-top: 2.5rem; width: 100%; }
         }
         @media(max-width: 768px) {
           #hero { height: auto; padding: 100px 0 6.5rem !important; display: block; }
           #hc { height: 100% !important; }
           #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
-          .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
+          .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; display: flex; flex-direction: column-reverse; }
           .scr { margin-top: 2rem !important; }
           .p-card {
             transform: none !important;
