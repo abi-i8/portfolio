@@ -336,7 +336,31 @@ export default function Hero() {
       <div className="hero-wrapper">
         <div className="h-cont">
           <div className="h-dash">
-            <div className={`h-left ${collapsed ? "collapsed" : ""}`} id="h-desc-box">
+            <div className="h-card">
+              <div className="p-card">
+                <div className="p-head">
+                  <img src="/DP.jpg" alt="Abijith A R" className="p-img" />
+                  <div className="p-status" />
+                </div>
+                <div className="p-name">Abijith A R</div>
+                <span className="p-tag">Creative Media Specialist <br /> Software Engineer <br /> (Web, Android &amp; iOS)</span>
+                <div className="p-stats">
+                  <div className="p-stat">
+                    <span className="p-stat-val">5+</span>
+                    <span className="p-stat-lbl">Years</span>
+                  </div>
+                  <div className="p-stat">
+                    <span className="p-stat-val">12+</span>
+                    <span className="p-stat-lbl">Stacks</span>
+                  </div>
+                  <div className="p-stat">
+                    <span className="p-stat-val">36+</span>
+                    <span className="p-stat-lbl">Clients</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={`h-text ${collapsed ? "collapsed" : ""}`} id="h-desc-box">
               <p className="h-first-p">
                 Creative Media Specialist and Software Engineer with expertise in AI-assisted creative production, multimedia storytelling, branding, and cross-platform application development.
               </p>
@@ -365,30 +389,6 @@ export default function Hero() {
                   </svg>
                   Resume
                 </a>
-              </div>
-            </div>
-            <div className="h-right">
-              <div className="p-card">
-                <div className="p-head">
-                  <img src="/DP.jpg" alt="Abijith A R" className="p-img" />
-                  <div className="p-status" />
-                </div>
-                <div className="p-name">Abijith A R</div>
-                <span className="p-tag">Creative Media Specialist <br /> Software Engineer <br /> (Web, Android &amp; iOS)</span>
-                <div className="p-stats">
-                  <div className="p-stat">
-                    <span className="p-stat-val">5+</span>
-                    <span className="p-stat-lbl">Years</span>
-                  </div>
-                  <div className="p-stat">
-                    <span className="p-stat-val">12+</span>
-                    <span className="p-stat-lbl">Stacks</span>
-                  </div>
-                  <div className="p-stat">
-                    <span className="p-stat-val">36+</span>
-                    <span className="p-stat-lbl">Clients</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -442,14 +442,14 @@ export default function Hero() {
         }
         .h-dash {
           display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
+          grid-template-columns: 0.85fr 1.15fr;
           align-items: center;
           gap: 2rem;
           background: rgba(10, 12, 20, 0.45) !important;
           -webkit-backdrop-filter: blur(32px) !important;
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 2rem;
-          padding: 2.5rem;
+          padding: 2rem;
           position: relative;
           overflow: hidden;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -462,16 +462,16 @@ export default function Hero() {
         @keyframes heroFadeIn {
           to { opacity: 1; }
         }
-        .h-left {
+        .h-text {
           display: flex;
           flex-direction: column;
           justify-content: center;
           border-left: 1px solid rgba(255, 255, 255, 0.05);
           padding-left: 1.5rem;
         }
-        .h-left p { text-align: justify; color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 50ch; margin-bottom: 0.5rem; }
-        .h-left p:last-of-type { margin-bottom: 2rem; }
-        .h-right { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .h-text p { text-align: justify; color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 50ch; margin-bottom: 0.5rem; }
+        .h-text p:last-of-type { margin-bottom: 1.25rem; }
+        .h-card { display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .p-card {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
@@ -517,14 +517,14 @@ export default function Hero() {
         .h-read-more { display: none; }
 
         @media(max-width: 968px) {
-          .h-dash { display: flex; flex-direction: column-reverse; padding: 2.5rem; gap: 3rem; border-radius: 1.5rem; }
-          .h-left { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-left: 0; padding-top: 2.5rem; width: 100%; }
+          .h-dash { display: flex; flex-direction: column; padding: 2rem; gap: 3rem; border-radius: 1.5rem; }
+          .h-text { border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-left: 0; padding-top: 2.5rem; width: 100%; }
         }
         @media(max-width: 768px) {
           #hero { height: auto; padding: 100px 0 6.5rem !important; display: block; }
           #hc { height: 100% !important; }
           .h-cont { padding: 0 1.2rem !important; }
-          .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; display: flex; flex-direction: column-reverse; }
+          .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; display: flex; flex-direction: column; }
           .p-card {
             transform: none !important;
             margin: 0 auto !important;
@@ -539,8 +539,8 @@ export default function Hero() {
             border-color: rgba(0, 212, 255, 0.3) !important;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
           }
-          .h-left { text-align: center !important; }
-          .h-left p { 
+          .h-text { text-align: center !important; }
+          .h-text p { 
             margin: 0 0 1.2rem !important; 
             text-align: justify !important; 
             text-justify: inter-word !important;
@@ -549,7 +549,7 @@ export default function Hero() {
             word-break: break-word !important;
             line-height: 1.6 !important;
           }
-           .h-left.collapsed .h-second-p { display: none !important; }
+           .h-text.collapsed .h-second-p { display: none !important; }
           .h-read-more { 
             display: block !important; 
             position: relative !important;
