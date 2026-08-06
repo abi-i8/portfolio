@@ -444,12 +444,12 @@ export default function Hero() {
           display: grid;
           grid-template-columns: 0.85fr 1.15fr;
           align-items: center;
-          gap: 3rem;
+          gap: 2rem;
           background: rgba(10, 12, 20, 0.45) !important;
           -webkit-backdrop-filter: blur(32px) !important;
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 2rem;
-          padding: 3.5rem;
+          padding: 2.5rem;
           position: relative;
           overflow: hidden;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -467,16 +467,16 @@ export default function Hero() {
           flex-direction: column;
           justify-content: center;
           border-left: 1px solid rgba(255, 255, 255, 0.05);
-          padding-left: 2rem;
+          padding-left: 1.5rem;
         }
-        .h-left p { text-align: justify; color: var(--muted); font-size: 1.1rem; line-height: 1.7; max-width: 48ch; margin-bottom: 0.5rem; }
-        .h-left p:last-of-type { margin-bottom: 2.5rem; }
+        .h-left p { text-align: justify; color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 50ch; margin-bottom: 0.5rem; }
+        .h-left p:last-of-type { margin-bottom: 2rem; }
         .h-right { display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .p-card {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 1.5rem;
-          padding: 2rem;
+          padding: 1.5rem;
           width: 100%;
           max-width: 320px;
           text-align: center;
@@ -492,8 +492,8 @@ export default function Hero() {
         .p-name {
           font-family: var(--ru);
           font-weight: 700;
-          font-size: 1.35rem;
-          margin: 1.2rem 0 0.2rem;
+          font-size: 1.3rem;
+          margin: 1rem 0 0.2rem;
           letter-spacing: 0.1em;
           background: linear-gradient(90deg, #fff, var(--neon), #bd00ff, var(--neon), #fff);
           background-size: 200% auto;
@@ -504,11 +504,11 @@ export default function Hero() {
           text-transform: uppercase;
         }
         @keyframes hshine { to { background-position: 200% center } }
-        .p-head { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, var(--neon), var(--gold)); }
+        .p-head { position: relative; width: 100px; height: 100px; margin: 0 auto 1rem; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, var(--neon), var(--gold)); }
         .p-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--void); }
         .p-status { position: absolute; bottom: 8px; right: 8px; width: 14px; height: 14px; background: #00ff88; border-radius: 50%; border: 2px solid var(--void); box-shadow: 0 0 10px #00ff88; }
         .p-tag { font-size: 0.75rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem; display: block; }
-        .p-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; margin-top: 1rem; }
+        .p-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.25rem; margin-top: 0.75rem; }
         .p-stat-val { display: block; font-family: var(--ru); font-size: 1.1rem; color: var(--txt); }
         .p-stat-lbl { font-size: 0.65rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
         .scr { position: relative; align-self: center; margin-top: 2rem; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-family: var(--ex); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
