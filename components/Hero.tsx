@@ -333,54 +333,85 @@ export default function Hero() {
                   <span className="p-stat-val">36+</span>
                   <span className="p-stat-lbl">Clients</span>
                 </div>
+      <div className="hero-wrapper">
+        <div className="h-cont">
+          <div className="h-dash">
+            <div className={`h-left ${collapsed ? "collapsed" : ""}`} id="h-desc-box">
+              <p className="h-first-p">
+                Creative Media Specialist and Software Engineer with expertise in AI-assisted creative production, multimedia storytelling, branding, and cross-platform application development.
+              </p>
+              <p className="h-second-p">
+                Experienced in designing impactful campaigns, producing cinematic content, and developing scalable Web, Android, and iOS applications using technologies like Three.js and WebGL. Skilled in integrating software engineering, AI workflows, and digital marketing to build user-focused digital products and immersive experiences.
+              </p>
+              <button className="h-read-more" onClick={() => setCollapsed(!collapsed)}>
+                {collapsed ? "Read More" : "Read Less"}
+              </button>
+              <div className="h-ctas" style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap" }}>
+                <a href="#contact" className="btn-ref">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "-2px" }}>
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                  Connect
+                </a>
+                <a href="/Abijith A R - Resume.pdf" className="btn-ref outline" download target="_blank" rel="noopener noreferrer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "-2px" }}>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Resume
+                </a>
+              </div>
+            </div>
+            <div className="h-right">
+              <div className="p-card">
+                <div className="p-head">
+                  <img src="/DP.jpg" alt="Abijith A R" className="p-img" />
+                  <div className="p-status" />
+                </div>
+                <div className="p-name">Abijith A R</div>
+                <span className="p-tag">Creative Media Specialist <br /> Software Engineer <br /> (Web, Android &amp; iOS)</span>
+                <div className="p-stats">
+                  <div className="p-stat">
+                    <span className="p-stat-val">5+</span>
+                    <span className="p-stat-lbl">Years</span>
+                  </div>
+                  <div className="p-stat">
+                    <span className="p-stat-val">12+</span>
+                    <span className="p-stat-lbl">Stacks</span>
+                  </div>
+                  <div className="p-stat">
+                    <span className="p-stat-val">36+</span>
+                    <span className="p-stat-lbl">Clients</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className={`h-left ${collapsed ? "collapsed" : ""}`} id="h-desc-box">
-            <p>
-              Creative Media Specialist and Software Engineer with expertise in AI-assisted creative production, multimedia storytelling, branding, and cross-platform application development.
-            </p>
-            <p className="h-second-p">
-              Experienced in designing impactful campaigns, producing cinematic content, and developing scalable web, Android, and iOS applications using technologies like Three.js and WebGL. Skilled in integrating software engineering, AI workflows, and digital marketing to build user-focused digital products and immersive experiences.
-            </p>
-            <button className="h-read-more" onClick={() => setCollapsed(!collapsed)}>
-              {collapsed ? "Read More" : "Read Less"}
-            </button>
-            <div className="h-ctas" style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap" }}>
-              <a href="#contact" className="btn-ref">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                  strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "-2px" }}>
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-                Connect
-              </a>
-              <a href="/Abijith A R - Resume.pdf" className="btn-ref outline" download target="_blank" rel="noopener noreferrer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                  strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "-2px" }}>
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Resume
-              </a>
-            </div>
-          </div>
         </div>
+        <div className="scr" aria-hidden="true">Scroll</div>
       </div>
-      <div className="scr" aria-hidden="true">Scroll</div>
 
       <style jsx>{`
         #hero {
           position: relative;
-          height: 100dvh;
-          min-height: 640px;
+          min-height: 100dvh;
           overflow: hidden;
           display: flex;
           align-items: center;
           background: #01010a !important;
+          padding-top: 80px;
+        }
+        .hero-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          z-index: 2;
         }
         #hc {
           position: absolute;
@@ -480,7 +511,7 @@ export default function Hero() {
         .p-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; margin-top: 1rem; }
         .p-stat-val { display: block; font-family: var(--ru); font-size: 1.1rem; color: var(--txt); }
         .p-stat-lbl { font-size: 0.65rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
-        .scr { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-family: var(--ex); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+        .scr { position: relative; align-self: center; margin-top: 2rem; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-family: var(--ex); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
         .scr::after { content: ''; width: 1px; height: 50px; background: linear-gradient(to bottom, transparent, var(--cyan), transparent); opacity: 0.8; animation: sb 2.5s ease-in-out infinite; }
         @keyframes sb { 0% { opacity: 0; transform: scaleY(0); transform-origin: top } 40% { opacity: 1; transform: scaleY(1); transform-origin: top } 60% { opacity: 1; transform: scaleY(1); transform-origin: bottom } 100% { opacity: 0; transform: scaleY(0); transform-origin: bottom } }
         .h-read-more { display: none; }
@@ -495,7 +526,7 @@ export default function Hero() {
           #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; }
-          .scr { bottom: 1.5rem !important; }
+          .scr { margin-top: 2rem !important; }
           .p-card {
             transform: none !important;
             margin: 0 auto !important;
