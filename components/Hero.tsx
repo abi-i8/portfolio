@@ -235,12 +235,30 @@ export default function Hero() {
       W = cv.clientWidth || window.innerWidth;
       H = cv.clientHeight || window.innerHeight;
       cam.aspect = W / H; cam.updateProjectionMatrix();
-      rend.setSize(W, H); updatePlanetPos();
+      rend.setSize(W, H, false); updatePlanetPos();
+    };
+
+    const sizeObs = new ResizeObserver(() => onResize());
+    sizeObs.observe(cv);
+
+    const onTouchStart = (e: TouchEvent) => { isDragging = true; px = e.touches[0].clientX; py = e.touches[0].clientY; };
+    const onTouchEnd = () => { isDragging = false; };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+      const t = e.touches[0];
+      mx = (t.clientX / W - .5) * 2.5; my = (t.clientY / H - .5) * 1.6;
+      dragRotY += (t.clientX - px) * 0.006;
+      dragRotX += (t.clientY - py) * 0.006;
+      dragRotX = Math.max(-1.2, Math.min(1.2, dragRotX));
+      px = t.clientX; py = t.clientY;
     };
 
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchstart", onTouchStart);
+    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchmove", onTouchMove);
     window.addEventListener("scroll", onScroll);
     window.addEventListener("resize", onResize);
 
@@ -298,8 +316,12 @@ export default function Hero() {
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
+      sizeObs.disconnect();
       observer.disconnect();
       cancelAnimationFrame(rafId);
       scene.clear();
