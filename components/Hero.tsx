@@ -224,11 +224,15 @@ export default function Hero() {
       if (target.closest('.h-dash') || target.closest('.scr')) return;
       
       e.preventDefault();
+      document.body.style.userSelect = "none";
       isDragging = true; 
       px = e.clientX; 
       py = e.clientY; 
     };
-    const onMouseUp = () => { isDragging = false; };
+    const onMouseUp = () => { 
+      isDragging = false; 
+      document.body.style.userSelect = "";
+    };
     const onMouseMove = (e: MouseEvent) => {
       mx = (e.clientX / W - .5) * 2.5; my = (e.clientY / H - .5) * 1.6;
       if (isDragging) {
@@ -253,11 +257,15 @@ export default function Hero() {
       const target = e.target as HTMLElement;
       if (target.closest('.h-dash') || target.closest('.scr')) return;
       
+      document.body.style.userSelect = "none";
       isDragging = true; 
       px = e.touches[0].clientX; 
       py = e.touches[0].clientY; 
     };
-    const onTouchEnd = () => { isDragging = false; };
+    const onTouchEnd = () => { 
+      isDragging = false; 
+      document.body.style.userSelect = "";
+    };
     const onTouchMove = (e: TouchEvent) => {
       if (!isDragging) return;
       const t = e.touches[0];
