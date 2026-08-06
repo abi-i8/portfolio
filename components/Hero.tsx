@@ -420,7 +420,7 @@ export default function Hero() {
         }
         .h-dash {
           display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
+          grid-template-columns: 1.15fr 0.85fr;
           align-items: center;
           gap: 2rem;
           background: rgba(10, 12, 20, 0.45) !important;
