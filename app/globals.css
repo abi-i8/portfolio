@@ -42,7 +42,6 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
   hyphens: none;
   overflow-wrap: normal;
   word-break: normal;
@@ -280,7 +279,7 @@ section {
   border-radius: 100px;
   border: 1px solid transparent;
   transition: all .3s var(--sp);
-  cursor: none;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
   text-decoration: none;

@@ -72,7 +72,8 @@ export default function CustomCursor() {
           height: hovered ? "54px" : "40px",
           borderRadius: "50%",
           border: hovered ? "1px solid var(--cyan)" : "1px solid rgba(124, 77, 255, .5)",
-          transition: "width .3s var(--sp), height .3s var(--sp), border-color .3s",
+          backgroundColor: hovered ? "rgba(0, 212, 255, 0.1)" : "transparent",
+          transition: "width .3s var(--sp), height .3s var(--sp), border-color .3s, background-color .3s",
         }}
       />
       <style jsx global>{`
