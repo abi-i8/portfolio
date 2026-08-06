@@ -2,7 +2,7 @@
 export default function Footer() {
   return (
     <footer>
-      <div className="f-txt">© {new Date().getFullYear()} ABIJITH A R — CREATIVE MEDIA TECHNOLOGIST</div>
+      <div className="f-txt">© {new Date().getFullYear()} ABIJITH A R — CREATIVE MEDIA SPECIALIST</div>
       <style jsx>{`
         footer {
           padding: 1.8rem 1rem !important;

@@ -6,7 +6,7 @@ type Message = { role: "usr" | "bot"; content: string; id: number };
 const RESUME_INFO = {
   name: "Abi",
   age: 25,
-  profile: "Abi is a Creative Media Technologist from Kerala, specializing in the intersection of branding, AI workflows, and immersive web technologies.",
+  profile: "Abi is a Creative Media Specialist from Kerala, specializing in the intersection of branding, AI workflows, and immersive web technologies.",
   education: [
     "MBA in Travel & Tourism Management, Central University of Kerala (2023-2025) - CGPA 6.67",
     "BA English Literature, Kannur University (2020-2023) - CGPA 6.83",
