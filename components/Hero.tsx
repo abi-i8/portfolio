@@ -219,7 +219,15 @@ export default function Hero() {
     let mx = 0, my = 0, cx = 0, cy = 0, sy = 0, tsy = 0;
     let isDragging = false, px = 0, py = 0, dragRotX = 0, dragRotY = 2.3;
 
-    const onMouseDown = (e: MouseEvent) => { isDragging = true; px = e.clientX; py = e.clientY; };
+    const onMouseDown = (e: MouseEvent) => { 
+      const target = e.target as HTMLElement;
+      if (target.closest('.h-dash') || target.closest('.scr')) return;
+      
+      e.preventDefault();
+      isDragging = true; 
+      px = e.clientX; 
+      py = e.clientY; 
+    };
     const onMouseUp = () => { isDragging = false; };
     const onMouseMove = (e: MouseEvent) => {
       mx = (e.clientX / W - .5) * 2.5; my = (e.clientY / H - .5) * 1.6;
@@ -241,7 +249,14 @@ export default function Hero() {
     const sizeObs = new ResizeObserver(() => onResize());
     sizeObs.observe(cv);
 
-    const onTouchStart = (e: TouchEvent) => { isDragging = true; px = e.touches[0].clientX; py = e.touches[0].clientY; };
+    const onTouchStart = (e: TouchEvent) => { 
+      const target = e.target as HTMLElement;
+      if (target.closest('.h-dash') || target.closest('.scr')) return;
+      
+      isDragging = true; 
+      px = e.touches[0].clientX; 
+      py = e.touches[0].clientY; 
+    };
     const onTouchEnd = () => { isDragging = false; };
     const onTouchMove = (e: TouchEvent) => {
       if (!isDragging) return;
