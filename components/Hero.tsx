@@ -501,10 +501,8 @@ export default function Hero() {
         @media(max-width: 768px) {
           #hero { height: auto; padding: 100px 0 6.5rem !important; display: block; }
           #hc { height: 100% !important; }
-          #hero::after { display: none !important; }
           .h-cont { padding: 0 1.2rem !important; }
           .h-dash { padding: 3rem 1.5rem !important; background: rgba(10, 12, 20, 0.7) !important; text-align: center; display: flex; flex-direction: column-reverse; }
-          .scr { margin-top: 2rem !important; }
           .p-card {
             transform: none !important;
             margin: 0 auto !important;
