@@ -310,29 +310,7 @@ export default function Hero() {
   return (
     <section id="hero" aria-label="Introduction">
       <canvas ref={canvasRef} id="hc" aria-hidden="true" role="presentation" />
-      <div className="h-cont">
-        <div className="h-dash">
-          <div className="h-right">
-            <div className="p-card">
-              <div className="p-head">
-                <img src="/DP.jpg" alt="Abijith A R" className="p-img" />
-                <div className="p-status" />
-              </div>
-              <div className="p-name">Abijith A R</div>
-              <span className="p-tag">Creative Media Specialist <br /> Software Engineer <br /> (Web, Android &amp; iOS)</span>
-              <div className="p-stats">
-                <div className="p-stat">
-                  <span className="p-stat-val">5+</span>
-                  <span className="p-stat-lbl">Years</span>
-                </div>
-                <div className="p-stat">
-                  <span className="p-stat-val">12+</span>
-                  <span className="p-stat-lbl">Stacks</span>
-                </div>
-                <div className="p-stat">
-                  <span className="p-stat-val">36+</span>
-                  <span className="p-stat-lbl">Clients</span>
-                </div>
+
       <div className="hero-wrapper">
         <div className="h-cont">
           <div className="h-dash">
